@@ -1,0 +1,10 @@
+{
+  "id": "fi.dy.soilo",
+  "version": "0.0.1",
+  "vendor": "soilo",
+  "type": "web",
+  "main": "index.html",
+  "title": "StreamViewer",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png"
+}

@@ -8,7 +8,9 @@ class View extends React.Component {
 
   render() {
     return (
-      <div></div>
+      <div className={`view ${this.props.title}`}>
+        <h1>{this.props.title}</h1>
+      </div>
     );
   }
 }

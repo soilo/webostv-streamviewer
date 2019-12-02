@@ -18,7 +18,7 @@ class NavItem extends React.Component {
     }
 
     return (
-      <button className={className}>
+      <button className={className} onClick={(event) => this.props.handleSelect(event, this.props.name)} >
         <FontAwesomeIcon icon={['fas', `${this.props.icon}`]} />
         {this.props.name}
       </button>

@@ -1,0 +1,41 @@
+{
+  "name": "webostv-streamviewer",
+  "version": "1.0.0",
+  "description": "An unofficial hobby Twitch client for webOS TV.",
+  "main": "index.html",
+  "scripts": {
+    "build": "rm -Rf dist && parcel build ./src/index.html --no-source-maps --no-cache",
+    "start": "parcel ./src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soilo/webostv-streamviewer.git"
+  },
+  "keywords": [],
+  "author": "Mikko Savolainen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soilo/webostv-streamviewer/issues"
+  },
+  "homepage": "https://github.com/soilo/webostv-streamviewer#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cssnano": "^4.1.10",
+    "node-sass": "^4.13.0",
+    "parcel-bundler": "^1.12.4"
+  }
+}

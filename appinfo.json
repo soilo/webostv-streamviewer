@@ -1,9 +1,9 @@
 {
-  "id": "fi.dy.soilo",
+  "id": "fi.dy.soilo.streamviewer",
   "version": "0.0.1",
-  "vendor": "soilo",
+  "vendor": "Mikko Savolainen",
   "type": "web",
-  "main": "index.html",
+  "main": "dist/index.html",
   "title": "StreamViewer",
   "icon": "icon.png",
   "largeIcon": "largeIcon.png"

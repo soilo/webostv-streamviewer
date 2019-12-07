@@ -4,7 +4,23 @@ $color-navigation: #1f1f23;
 $color-accent: #9147ff;
 $color-text: #efeff1;
 
-.app {
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0e0e10;
+  color: #efeff1;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#app {
   display: flex;
 }
 
@@ -15,20 +31,24 @@ $color-text: #efeff1;
   padding: 20px;
 
   .navItem {
-    height: 100px;
+    display: flex;
+    align-items: center;
+
+    height: 70px;
     width: calc(100% + 40px);
     border: 10px solid transparent;
     margin: 0 -20px;
     padding: 0;
+    vertical-align: middle;
 
     background-color: $color-navigation;
     color: $color-text;
     font-size: 20px;
     text-align: left;
+    text-decoration: none;
     text-transform: uppercase;
 
-    &:focus,
-    &:hover {
+    &.focused {
       background-color: $color-background;
       border-color: $color-accent;
       cursor: pointer;

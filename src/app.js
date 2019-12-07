@@ -1,48 +1,36 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactTV, { renderOnAppLoaded } from 'react-tv';
+import { withNavigation } from 'react-tv-navigation';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
 import Navigation from './components/Navigation';
-import View from './components/View';
-import './app.scss'
+import Discover from './Discover';
+import Categories from './Categories';
+import Channels from './Channels';
+import Following from './Following';
+import Search from './Search';
+import './app.scss';
 
-class StreamViewerApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: "Home"
-    };
-  }
+const App = ({ currentFocusPath }) => {
 
-  handleSelect(event, view) {
-    console.log(event);
-    if (this.state.selected == view) {
-      // refresh
-    } else {
-      this.setState({selected: view});
-    }
-  }
-
-  render() {
-    const items = [
-      { name: "Search", icon: "search" },
-      { name: "Home", icon: "home" },
-      { name: "Categories", icon: "gamepad" },
-      { name: "Channels", icon: "tv" },
-      { name: "Following", icon: "star" }
-    ];
-
-    return (
-      <div className="app">
-        <Navigation
-          handleSelect={this.handleSelect.bind(this)}
-          selected={this.state.selected}
-          items={items} />
-        <View title={this.state.selected} />
-      </div>
-    );
-  }
+  return (
+    <Router>
+      <Navigation />
+      <Redirect from='' exact to='/' />
+      <Switch>
+        <Route exact path='/' component={Discover} />
+        <Route exact path='/category' component={Categories} />
+        <Route exact path='/channel' component={Channels} />
+        <Route exact path='/follow' component={Following} />
+        <Route exact path='/search' component={Search} />
+      </Switch>
+    </Router>
+  );
 }
 
-ReactDOM.render(
-  <StreamViewerApp />,
+const AppWithNavigation = renderOnAppLoaded(withNavigation(App));
+
+ReactTV.render(
+  <AppWithNavigation />,
   document.getElementById('app')
 );

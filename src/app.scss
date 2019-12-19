@@ -14,10 +14,12 @@ html {
 body {
   width: 100vw;
   height: 100vh;
-  background-color: #0e0e10;
-  color: #efeff1;
+  background-color: $color-background;
+  color: $color-text;
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 #app {
@@ -27,15 +29,32 @@ body {
 .navigation {
   background-color: $color-navigation;
   height: 100vh;
-  width: 15vw;
+  width: 300px;
   padding: 20px;
+
+  h1 {
+    font-size: 38px;
+    font-family: Vollkorn;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+
+    margin: 15px 0 20px;
+
+    span.pink {
+      color: $color-accent;
+    }
+
+    span.white {
+      color: $color-text;
+    }
+  }
 
   .navItem {
     display: flex;
     align-items: center;
 
     height: 70px;
-    width: calc(100% + 40px);
+    width: 300px;
     border: 10px solid transparent;
     margin: 0 -20px;
     padding: 0;
@@ -52,7 +71,6 @@ body {
       background-color: $color-background;
       border-color: $color-accent;
       cursor: pointer;
-      outline: 0 !important;
     }
 
     &::-moz-focus-inner {
@@ -72,4 +90,39 @@ body {
 .view {
   flex-grow: 1;
   padding: 20px;
+
+  .streamList {
+    flex: 1;
+    display: flex;
+    overflow-x: hidden;
+    max-width: calc(100vw - 320px);
+  }
+
+  .streamItem {
+    display: flex column;
+    color: $color-text;
+    text-decoration: none;
+    border: 10px solid transparent;
+    width: 340px;
+
+    .title {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      display: block;
+    }
+
+    &.focused {
+      border-color: $color-accent;
+      cursor: pointer;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+  }
 }

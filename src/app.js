@@ -19,10 +19,10 @@ const App = ({ currentFocusPath }) => {
       <Redirect from='' exact to='/' />
       <Switch>
         <Route exact path='/' component={Discover} />
-        <Route exact path='/category' component={Categories} />
-        <Route exact path='/channel' component={Channels} />
+        <Route exact path='/category/:id?' component={Categories} />
+        <Route exact path='/channel/:id?' component={Channels} />
         <Route exact path='/follow' component={Following} />
-        <Route exact path='/search' component={Search} />
+        <Route exact path='/search/:id?' component={Search} />
       </Switch>
     </Router>
   );

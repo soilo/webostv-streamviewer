@@ -10,8 +10,8 @@ const Item = ({focused, setFocus, focusPath, text, link, icon}) => {
   className += (focused) ? ' focused' : ' unfocused';
   return (
     <Link to={link} className={className}>
-        <FontAwesomeIcon className='icon' icon={icon} />
-        <span>{text}</span>
+      <FontAwesomeIcon className='icon' icon={icon} />
+      <span>{text}</span>
     </Link>
   )
 }
@@ -22,7 +22,10 @@ const Navigation = () => {
   return (
     <nav className='navigation' role='navigation' aria-label='main navigation'>
       <div className='navigation-title'>
-        <h1>StreamViewer</h1>
+        <h1>
+          <span className='pink'>Stream</span>
+          <span className='white'>Viewer</span>
+        </h1>
       </div>
       <NavItem focusPath='Search' text='Search' link={'/search'} icon={faSearch} />
       <NavItem focusPath='Discover' text='Discover' link={'/'} icon={faHome} />

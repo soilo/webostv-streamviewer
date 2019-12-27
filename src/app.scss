@@ -49,7 +49,7 @@ body {
     }
   }
 
-  .navItem {
+  .item {
     display: flex;
     align-items: center;
 
@@ -90,19 +90,22 @@ body {
 .view {
   flex-grow: 1;
   padding: 20px;
+  width: calc(100vw - 340px);
 
-  .streamList {
-    flex: 1;
-    display: flex;
+  .list {
+    width: 100%;
     overflow-x: hidden;
-    max-width: calc(100vw - 320px);
-  }
+    white-space: nowrap;
 
-  .streamItem {
-    display: flex column;
+  .item {
+    display: inline-block;
     color: $color-text;
     text-decoration: none;
     border: 10px solid transparent;
+    vertical-align: top;
+  }
+
+  .streamItem {
     width: 340px;
 
     .title {
@@ -125,4 +128,15 @@ body {
       border: 0;
     }
   }
+}
+}
+
+
+#twitch-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
 }

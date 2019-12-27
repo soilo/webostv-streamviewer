@@ -9,6 +9,7 @@ import Categories from './Categories';
 import Channels from './Channels';
 import Following from './Following';
 import Search from './Search';
+import Stream from './Stream';
 import './app.scss';
 
 const App = ({ currentFocusPath }) => {
@@ -23,6 +24,7 @@ const App = ({ currentFocusPath }) => {
         <Route exact path='/channel/:id?' component={Channels} />
         <Route exact path='/follow' component={Following} />
         <Route exact path='/search/:id?' component={Search} />
+        <Route exact path='/stream/:channel?' component={Stream} />
       </Switch>
     </Router>
   );

@@ -3,8 +3,11 @@ import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
 
 const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
-  let className = 'streamItem';
+  let className = 'item streamItem';
   className += (focused) ? ' focused' : ' unfocused';
+
+  const item = React.createRef();
+
   const thumbnail_url = stream.thumbnail_url
     .replace('{width}', '320')
     .replace('{height}','180');
@@ -12,7 +15,11 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   return (
     <Link
       to={`/stream/${stream.user_name}`} className={className}
-      onFocus={() => console.log('bar')}
+      onFocus={ () => item.current.scrollIntoView({
+        behaviour: 'smooth',
+        inline: 'nearest'
+      })}
+      ref={item}
     >
       <div className='preview'>
         <img src={thumbnail_url} alt='thumbnail' />
@@ -37,16 +44,17 @@ const StreamList = ({title, hasErrored, isLoading, streams}) => {
 
   const StreamItem = withFocusable(StreamListItem);
 
+  const scroll = React.createRef();
+
   return (
     <div>
       <h2>{title}</h2>
-      <div className='streamList'>
+      <div className='list streamList'>
         { streams.map((stream) =>(
           <StreamItem
             key={stream.id}
             focusPath={stream.id}
-            stream={stream}
-            onFocus={() => console.log('foo')}/>
+            stream={stream}/>
         ))}
       </div>
     </div>

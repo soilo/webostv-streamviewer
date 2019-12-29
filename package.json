@@ -4,7 +4,7 @@
   "description": "An unofficial hobby Twitch client for webOS TV.",
   "main": "index.html",
   "scripts": {
-    "build": "rm -Rf dist && parcel build ./src/index.html --public-url ./",
+    "build": "./tools/build.sh",
     "start": "parcel ./src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -34,7 +34,10 @@ export const enrichStreams = (streams, callback) => {
       .accept('json')
       .then(res => {
         forEach(streams, (stream) => {
-          stream.game = filter(res.body.data, (game) => game.id === stream.game_id)[0]
+          stream.game = filter(
+            res.body.data,
+            (game) => game.id === stream.game_id
+          )[0]
         })
         callback({streams: treams})
       })

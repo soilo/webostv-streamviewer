@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactTV, { renderOnAppLoaded } from 'react-tv';
 import { withNavigation } from 'react-tv-navigation';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
 import Navigation from './components/Navigation';
 import Discover from './Discover';
@@ -19,12 +24,35 @@ const App = ({ currentFocusPath }) => {
       <Navigation />
       <Redirect from='' exact to='/' />
       <Switch>
-        <Route exact path='/' component={Discover} />
-        <Route exact path='/category/:id?' component={Categories} />
-        <Route exact path='/channel/:id?' component={Channels} />
-        <Route exact path='/follow' component={Following} />
-        <Route exact path='/search/:id?' component={Search} />
-        <Route exact path='/stream/:channel?' component={Stream} />
+        <Route
+          exact
+          path='/'
+          render={(routeProps) => <Discover {...routeProps} />}
+        />
+        <Route
+          exact
+          path='/category/:id?'
+          render={(routeProps) => <Categories {...routeProps} />} />
+        <Route
+          exact
+          path='/channel/:id?'
+          render={(routeProps) => <Channels {...routeProps} />}
+        />
+        <Route
+          exact
+          path='/follow'
+          render={(routeProps) => <Following {...routeProps} />}
+        />
+        <Route
+          exact
+          path='/search/:id?'
+          render={(routeProps) => <Search {...routeProps} />}
+        />
+        <Route
+          exact
+          path='/stream/:channel?'
+          render={(routeProps) => <Stream {...routeProps} />}
+        />
       </Switch>
     </Router>
   );

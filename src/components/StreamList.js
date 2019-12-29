@@ -18,7 +18,7 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
       onFocus={ () => item.current.scrollIntoView({
         behaviour: 'smooth',
         inline: 'nearest'
-      })}
+      }) }
       ref={item}
     >
       <div className='preview'>
@@ -28,6 +28,7 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
         <span className='title'>{stream.title}</span>
         <span className='subtitle'>{stream.user_name}</span>
         <span className='subtitle'>{stream.game == undefined ? '' : stream.game.name}</span>
+        <span className='subtitle'>{stream.viewer_count}</span>
       </div>
     </Link>
   )
@@ -43,8 +44,6 @@ const StreamList = ({title, hasErrored, isLoading, streams}) => {
   }
 
   const StreamItem = withFocusable(StreamListItem);
-
-  const scroll = React.createRef();
 
   return (
     <div>

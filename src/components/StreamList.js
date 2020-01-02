@@ -9,8 +9,12 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   const item = React.createRef();
 
   const thumbnail_url = stream.thumbnail_url
-    .replace('{width}', '320')
-    .replace('{height}','180');
+    .replace('{width}', '440')
+    .replace('{height}','248');
+
+  if (parseInt(stream.viewer_count) > 1000) {
+    stream.viewer_count = (parseInt(stream.viewer_count) / 1000).toFixed(0) + 'K';
+  }
 
   return (
     <Link
@@ -24,11 +28,11 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
       <div className='preview'>
         <img src={thumbnail_url} alt='thumbnail' />
       </div>
-      <div classNames='titles'>
+      <div className='titles'>
         <span className='title'>{stream.title}</span>
         <span className='subtitle'>{stream.user_name}</span>
         <span className='subtitle'>{stream.game == undefined ? '' : stream.game.name}</span>
-        <span className='subtitle'>{stream.viewer_count}</span>
+        <span className='subtitle'>{stream.viewer_count} viewers</span>
       </div>
     </Link>
   )

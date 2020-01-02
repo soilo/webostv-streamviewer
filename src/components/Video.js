@@ -1,7 +1,7 @@
 import React from 'react';
 import TwitchEmbedVideo from 'react-twitch-embed-video';
 
-const Stream = (props) => {
+const Video = (props) => {
 
   return (
     <TwitchEmbedVideo
@@ -16,4 +16,4 @@ const Stream = (props) => {
   );
 }
 
-export default Stream;
+export default Video;

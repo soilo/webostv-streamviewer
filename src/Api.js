@@ -1,41 +1,54 @@
-import request from 'superagent';
-import { join, filter, flatMap, forEach} from 'lodash-es'
+import { fetch } from 'whatwg-fetch';
+import { join, filter, flatMap, forEach, map} from 'lodash-es'
 
 const clientId = '***REMOVED***';
 const api = 'https://api.twitch.tv/helix/';
 
-export const fetchStreams = (callback) => {
-  callback({ isLoading: true });
-  request
-    .get(api + 'streams')
-    .set({
-      'Client-ID': clientId
-    })
-    .accept('json')
-    .then(res => callback({
-      isLoading: false,
-      streams: res.body.data,
-      pagination: res.body.pagination
+export const fetchStreams = (callback, signal, id) => {
+  callback({ streamIsLoading: true });
+  fetch(api + 'streams' + (id ? '' : '?game_id=' + id), {
+    headers: { 'Client-ID': clientId },
+    signal: signal
+  })
+    .then(response => response.json())
+    .then(streams => callback({
+      streamIsLoading: false,
+      streams: streams.data,
+      streamPagination: streams.pagination
     }))
-    .catch(err => callback({ hasErrored: true }));
+    .catch(err => callback({ steamHasErrored: true }));
 }
 
-export const enrichStreams = (streams, callback) => {
+export const fetchGames = (callback, signal) => {
+  callback({ gameIsLoading: true });
+  fetch(api + 'games/top', {
+    headers: { 'Client-ID': clientId },
+    signal: signal
+  })
+    .then(response => response.json())
+    .then(games => callback({
+      gameIsLoading: false,
+      games: games.data,
+      gamePagination: games.pagination
+    }))
+    .catch(err => callback({ gameHasErrored: true }));
+}
+
+export const enrichStreams = (callback, signal, streams) => {
   if (typeof streams !== 'undefined' &&
       streams.length > 0 &&
       typeof streams[0].game === 'undefined') {
     const paramMap = flatMap(streams, (stream) => 'id=' + stream.game_id)
     const params = '?' + join(paramMap, '&');
-    request
-      .get(api +'games' + params)
-      .set({
-        'Client-ID': clientId
-      })
-      .accept('json')
-      .then(res => {
+    fetch(api +'games' + params, {
+      headers: { 'Client-ID': clientId },
+      signal: signal
+    })
+      .then(response => response.json())
+      .then(games => {
         forEach(streams, (stream) => {
           stream.game = filter(
-            res.body.data,
+            games,
             (game) => game.id === stream.game_id
           )[0]
         })

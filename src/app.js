@@ -10,11 +10,11 @@ import {
 
 import Navigation from './components/Navigation';
 import Discover from './Discover';
-import Categories from './Categories';
+import Games from './Games';
 import Channels from './Channels';
 import Following from './Following';
 import Search from './Search';
-import Stream from './Stream';
+import Video from './components/Video';
 import './app.scss';
 
 const App = ({ currentFocusPath }) => {
@@ -30,28 +30,23 @@ const App = ({ currentFocusPath }) => {
           render={(routeProps) => <Discover {...routeProps} />}
         />
         <Route
-          exact
-          path='/category/:id?'
-          render={(routeProps) => <Categories {...routeProps} />} />
+          path='/game/:id?'
+          render={(routeProps) => <Games {...routeProps} />} />
         <Route
-          exact
           path='/channel/:id?'
           render={(routeProps) => <Channels {...routeProps} />}
         />
         <Route
-          exact
           path='/follow'
           render={(routeProps) => <Following {...routeProps} />}
         />
         <Route
-          exact
           path='/search/:id?'
           render={(routeProps) => <Search {...routeProps} />}
         />
         <Route
-          exact
           path='/stream/:channel?'
-          render={(routeProps) => <Stream {...routeProps} />}
+          render={(routeProps) => <Video {...routeProps} />}
         />
       </Switch>
     </Router>

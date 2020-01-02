@@ -5,8 +5,10 @@ $color-accent: #9147ff;
 $color-text: #efeff1;
 
 html {
+  font-family: 'Museo Sans', sans-serif;
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -22,6 +24,15 @@ body {
   overflow: hidden;
 }
 
+h1 {
+  font-size: 38px;
+  margin: 15px 0 20px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
 #app {
   display: flex;
 }
@@ -33,12 +44,9 @@ body {
   padding: 20px;
 
   h1 {
-    font-size: 38px;
     font-family: Vollkorn;
     font-weight: 700;
     letter-spacing: -0.3px;
-
-    margin: 15px 0 20px;
 
     span.pink {
       color: $color-accent;
@@ -63,6 +71,7 @@ body {
     background-color: $color-navigation;
     color: $color-text;
     font-size: 20px;
+    letter-spacing: 0.5px;
     text-align: left;
     text-decoration: none;
     text-transform: uppercase;
@@ -77,7 +86,7 @@ body {
       border: 0;
     }
 
-    &.selected {
+    &.sselected {
       background: $color-background;
     }
 
@@ -97,38 +106,50 @@ body {
     overflow-x: hidden;
     white-space: nowrap;
 
-  .item {
-    display: inline-block;
-    color: $color-text;
-    text-decoration: none;
-    border: 10px solid transparent;
-    vertical-align: top;
+    .item {
+      display: inline-block;
+      color: $color-text;
+      text-decoration: none;
+      border: 10px solid transparent;
+      vertical-align: top;
+
+      .titles {
+        font-size: 20px;
+        line-height: 1.35;
+        padding: 8px;
+      }
+
+      .title {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        display: block;
+      }
+
+      &.focused {
+        border-color: $color-accent;
+        cursor: pointer;
+      }
+
+      &::-moz-focus-inner {
+        border: 0;
+      }
+    }
+
+    .streamItem {
+      width: 460px;
+    }
+
+    .gameItem {
+      width: 208px;
+    }
   }
-
-  .streamItem {
-    width: 340px;
-
-    .title {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .subtitle {
-      display: block;
-    }
-
-    &.focused {
-      border-color: $color-accent;
-      cursor: pointer;
-    }
-
-    &::-moz-focus-inner {
-      border: 0;
-    }
-  }
-}
 }
 
 

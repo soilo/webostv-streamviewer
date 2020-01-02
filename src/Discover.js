@@ -1,26 +1,38 @@
 import React from 'react';
+import AbortController from 'abort-controller';
 
+import GameList from './components/GameList';
 import StreamList from './components/StreamList';
-import { fetchStreams, enrichStreams } from './Api';
+import { fetchStreams, fetchGames, enrichStreams } from './Api';
 
 class Discover extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasErrored: false,
-      isLoading: true,
+      gameHasErrored: false,
+      gameIsLoading: true,
+      games: [],
+      gamePagination: '',
+      streamHasErrored: false,
+      streamIsLoading: true,
       streams: [],
-      pagination: ''
+      streamPagination: ''
     };
     this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
+    this.discovercontroller = new AbortController();
     fetchStreams(this.setState);
+    fetchGames(this.setState);
   }
 
   componentDidUpdate() {
-    enrichStreams(this.state.streams, this.setState);
+    enrichStreams(this.setState, this.state.streams);
+  }
+
+  componentWillUnmount() {
+    this.discovercontroller.abort();
   }
 
   render() {
@@ -29,10 +41,17 @@ class Discover extends React.Component {
         <h1>Discover</h1>
         <StreamList
           title='Streams'
-          hasErrored={this.state.hasErrored}
-          isLoading={this.state.isLoading}
+          hasErrored={this.state.streamHasErrored}
+          isLoading={this.state.streamIsLoading}
           streams={this.state.streams}
-          pagination={this.state.pagination}
+          pagination={this.state.streamPagination}
+        />
+        <GameList
+          title='Games'
+          hasErrored={this.state.gameHasErrored}
+          isLoading={this.state.gameIsLoading}
+          games={this.state.games}
+          pagination={this.state.gamePagination}
         />
       </div>
     );

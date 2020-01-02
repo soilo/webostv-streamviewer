@@ -1,6 +1,6 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
-import { NavLink } from 'react-router-dom';
+import { NavLink as Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faHome, faGamepad, faTv, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -9,14 +9,14 @@ const Item = ({focused, setFocus, focusPath, text, link, icon}) => {
   let className = 'item';
   className += (focused) ? ' focused' : ' unfocused';
   return (
-    <NavLink to={link} className={className} activeClassName='selected'>
+    <Link to={link} className={className}>
       <FontAwesomeIcon className='icon' icon={icon} />
       <span>{text}</span>
-    </NavLink>
+    </Link>
   )
 }
 
-const Navigation = () => {
+const Navigation = (props) => {
   const MenuItem = withFocusable(Item);
 
   return (
@@ -29,7 +29,7 @@ const Navigation = () => {
       </div>
       <MenuItem focusPath='Search' text='Search' link={'/search'} icon={faSearch} />
       <MenuItem focusPath='Discover' text='Discover' link={'/'} icon={faHome} />
-      <MenuItem focusPath='Categories' text='Categories' link={'/category'} icon={faGamepad} />
+      <MenuItem focusPath='Games' text='Games' link={'/game'} icon={faGamepad} />
       <MenuItem focusPath='Channels' text='Channels' link={'/channel'} icon={faTv} />
       <MenuItem focusPath='Following' text='Following' link={'/follow'} icon={faStar} />
     </nav>

@@ -45,7 +45,7 @@ const App = ({ currentFocusPath }) => {
           render={(routeProps) => <Search {...routeProps} />}
         />
         <Route
-          path='/stream(/:id)(/type)'
+          path='/stream/:channel?'
           render={(routeProps) => <Video {...routeProps} />}
         />
       </Switch>

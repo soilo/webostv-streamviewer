@@ -1,6 +1,4 @@
 import React from 'react';
-import AbortController from 'abort-controller';
-import { isEqual } from 'lodash-es';
 
 import GameList from './components/GameList';
 import StreamList from './components/StreamList';
@@ -22,30 +20,21 @@ class Games extends React.Component {
     this.setState = this.setState.bind(this);
   }
 
-  willFetchGames() {
-    fetchGames(this.setState, this.controller.signal);
-  }
-
   willFetchStreams() {
-    fetchStreams(this.setState, this.controller.signal, this.state.gameId);
+    fetchStreams(this.setState, this.state.gameId);
     this.setState({
       shouldFetchStreams: false,
     })
   }
 
   componentDidMount() {
-    this.controller = new AbortController();
-    this.willFetchGames();
+    fetchGames(this.setState);
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate() {
     if (this.state.shouldFetchStreams) {
       this.willFetchStreams();
     }
-  }
-
-  componentWillUnmount() {
-    this.controller.abort();
   }
 
   static getDerivedStateFromProps(props, state) {

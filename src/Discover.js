@@ -1,5 +1,4 @@
 import React from 'react';
-import AbortController from 'abort-controller';
 
 import GameList from './components/GameList';
 import StreamList from './components/StreamList';
@@ -22,17 +21,12 @@ class Discover extends React.Component {
   }
 
   componentDidMount() {
-    this.discovercontroller = new AbortController();
     fetchStreams(this.setState);
     fetchGames(this.setState);
   }
 
   componentDidUpdate() {
     enrichStreams(this.setState, this.state.streams);
-  }
-
-  componentWillUnmount() {
-    this.discovercontroller.abort();
   }
 
   render() {

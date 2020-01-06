@@ -1,54 +1,53 @@
 import { fetch } from 'whatwg-fetch';
+import request from 'superagent';
 import { join, filter, flatMap, forEach, map} from 'lodash-es'
 
 const clientId = '***REMOVED***';
 const api = 'https://api.twitch.tv/helix/';
 
-export const fetchStreams = (callback, signal, id) => {
+export const fetchStreams = (callback, id) => {
   callback({ streamIsLoading: true });
-  fetch(api + 'streams' + (id ? '?game_id=' + id : ''), {
-    headers: { 'Client-ID': clientId },
-    signal: signal
-  })
-    .then(response => response.json())
-    .then(streams => callback({
+  request
+    .get(api + 'streams' + (id ? '?game_id=' + id : ''))
+    .set({'Client-ID': clientId })
+    .accept('json')
+    .then(res => callback({
       streamIsLoading: false,
-      streams: streams.data,
-      streamPagination: streams.pagination
+      streams: res.body.data,
+      streamPagination: res.body.pagination
     }))
     .catch(err => callback({ steamHasErrored: true }));
 }
 
-export const fetchGames = (callback, signal) => {
+export const fetchGames = (callback) => {
   callback({ gameIsLoading: true });
-  fetch(api + 'games/top', {
-    headers: { 'Client-ID': clientId },
-    signal: signal
-  })
-    .then(response => response.json())
-    .then(games => callback({
+  request
+    .get(api + 'games/top')
+    .set({ 'Client-ID': clientId })
+    .accept('json')
+    .then(res => callback({
       gameIsLoading: false,
-      games: games.data,
-      gamePagination: games.pagination
+      games: res.body.data,
+      gamePagination: res.body.pagination
     }))
     .catch(err => callback({ gameHasErrored: true }));
 }
 
-export const enrichStreams = (callback, signal, streams) => {
+export const enrichStreams = (callback, streams) => {
   if (typeof streams !== 'undefined' &&
       streams.length > 0 &&
       typeof streams[0].game === 'undefined') {
     const paramMap = flatMap(streams, (stream) => 'id=' + stream.game_id)
     const params = '?' + join(paramMap, '&');
-    fetch(api +'games' + params, {
-      headers: { 'Client-ID': clientId },
-      signal: signal
-    })
-      .then(response => response.json())
-      .then(games => {
+
+    request
+      .get(api +'games' + params)
+      .set({ 'Client-ID': clientId })
+      .accept('json')
+      .then(res => {
         forEach(streams, (stream) => {
           stream.game = filter(
-            games,
+            res.body,
             (game) => game.id === stream.game_id
           )[0]
         })

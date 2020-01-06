@@ -6,7 +6,7 @@ const api = 'https://api.twitch.tv/helix/';
 
 export const fetchStreams = (callback, signal, id) => {
   callback({ streamIsLoading: true });
-  fetch(api + 'streams' + (id ? '' : '?game_id=' + id), {
+  fetch(api + 'streams' + (id ? '?game_id=' + id : ''), {
     headers: { 'Client-ID': clientId },
     signal: signal
   })

@@ -32,6 +32,7 @@
     "react-tv": "^0.4.3",
     "react-tv-navigation": "^0.4.3",
     "react-twitch-embed-video": "^1.1.2",
+    "scroll-into-view-if-needed": "^2.2.20",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

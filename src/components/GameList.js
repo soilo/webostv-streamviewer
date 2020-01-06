@@ -1,6 +1,7 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 const GameListItem = ({focused, setFocus, focusPath, game}) => {
   let className = 'item gameItem';
@@ -15,7 +16,8 @@ const GameListItem = ({focused, setFocus, focusPath, game}) => {
   return (
     <Link
       to={`/game/${game.id}`} className={className}
-      onFocus={ () => item.current.scrollIntoView({
+      onFocus={ () => scrollIntoView(item.current, {
+        scrollMode: 'if-needed',
         behaviour: 'smooth',
         inline: 'nearest'
       }) }
@@ -24,7 +26,7 @@ const GameListItem = ({focused, setFocus, focusPath, game}) => {
       <div className='preview'>
         <img src={box_art_url} alt='boxart' />
       </div>
-      <div classNames='titles'>
+      <div className='titles'>
         <span className='title'>{game.name}</span>
       </div>
     </Link>

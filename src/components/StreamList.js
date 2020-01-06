@@ -1,6 +1,7 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   let className = 'item streamItem';
@@ -19,7 +20,8 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   return (
     <Link
       to={`/stream/${stream.user_name}`} className={className}
-      onFocus={ () => item.current.scrollIntoView({
+      onFocus={ () => scrollIntoView(item.current, {
+        scrollMode: 'if-needed',
         behaviour: 'smooth',
         inline: 'nearest'
       }) }

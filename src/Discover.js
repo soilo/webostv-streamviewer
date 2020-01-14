@@ -34,7 +34,7 @@ class Discover extends React.Component {
       <div className='view Discover'>
         <h1>Discover</h1>
         <StreamList
-          title='Streams'
+          title='Live streams'
           hasErrored={this.state.streamHasErrored}
           isLoading={this.state.streamIsLoading}
           streams={this.state.streams}

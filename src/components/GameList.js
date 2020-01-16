@@ -3,6 +3,8 @@ import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
+import AddListItem from './AddListItem';
+
 const GameListItem = ({focused, setFocus, focusPath, game}) => {
   let className = 'item gameItem';
   className += (focused) ? ' focused' : ' unfocused';
@@ -33,7 +35,7 @@ const GameListItem = ({focused, setFocus, focusPath, game}) => {
   )
 }
 
-const GameList = ({title, hasErrored, isLoading, games}) => {
+const GameList = ({title, hasErrored, isLoading, games, addMore}) => {
   if (hasErrored) {
     return <p>Sorry! There was an error loading games</p>
   }
@@ -48,12 +50,18 @@ const GameList = ({title, hasErrored, isLoading, games}) => {
     <div>
       <h2>{title}</h2>
       <div className='list gameList'>
-        { games.map((game) =>(
+        { games.map((game) => (
           <GameItem
             key={game.id}
             focusPath={game.id}
-            game={game}/>
+            game={game} />
         ))}
+        <AddListItem
+          focusPath='addGames'
+          itemClass='gameItem'
+          onClick={addMore}
+          onEnterPress={() => addMore()}
+        />
       </div>
     </div>
   );

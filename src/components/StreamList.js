@@ -3,6 +3,8 @@ import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
+import AddListItem from './AddListItem';
+
 const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   let className = 'item streamItem';
   className += (focused) ? ' focused' : ' unfocused';
@@ -40,7 +42,7 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
   )
 }
 
-const StreamList = ({title, hasErrored, isLoading, streams}) => {
+const StreamList = ({title, hasErrored, isLoading, streams, addMore}) => {
   if (hasErrored) {
     return <p>Sorry! There was an error loading streams</p>
   }
@@ -61,6 +63,12 @@ const StreamList = ({title, hasErrored, isLoading, streams}) => {
             focusPath={stream.id}
             stream={stream}/>
         ))}
+        <AddListItem
+          focusPath='addStream'
+          itemClass='streamItem'
+          onClick={addMore}
+          onEnterPress={() => addMore()}
+        />
       </div>
     </div>
   );

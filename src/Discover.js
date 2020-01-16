@@ -11,18 +11,18 @@ class Discover extends React.Component {
       gameHasErrored: false,
       gameIsLoading: true,
       games: [],
-      gamePagination: '',
+      gameCursor: '',
       streamHasErrored: false,
       streamIsLoading: true,
       streams: [],
-      streamPagination: ''
+      streamCursor: ''
     };
     this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
-    fetchStreams(this.setState);
-    fetchGames(this.setState);
+    fetchStreams(this.setState, this.state.streams);
+    fetchGames(this.setState, this.state.games);
   }
 
   componentDidUpdate() {
@@ -38,14 +38,14 @@ class Discover extends React.Component {
           hasErrored={this.state.streamHasErrored}
           isLoading={this.state.streamIsLoading}
           streams={this.state.streams}
-          pagination={this.state.streamPagination}
+          addMore={() => fetchStreams(this.setState, this.state.streams, undefined, this.state.streamCursor)}
         />
         <GameList
-          title='Games'
+          title='Top games'
           hasErrored={this.state.gameHasErrored}
           isLoading={this.state.gameIsLoading}
           games={this.state.games}
-          pagination={this.state.gamePagination}
+          addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
         />
       </div>
     );

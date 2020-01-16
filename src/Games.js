@@ -11,17 +11,17 @@ class Games extends React.Component {
       gameHasErrored: false,
       gameIsLoading: true,
       games: [],
-      gamePagination: '',
+      gameCursor: '',
       streamHasErrored: false,
       streamIsLoading: true,
       streams: [],
-      streamPagination: '',
+      streamCursor: '',
     };
     this.setState = this.setState.bind(this);
   }
 
   willFetchStreams() {
-    fetchStreams(this.setState, this.state.gameId);
+    fetchStreams(this.setState, this.state.streams, this.state.gameId);
     this.setState({
       shouldFetchStreams: false,
     })
@@ -35,7 +35,7 @@ class Games extends React.Component {
   }
 
   componentDidMount() {
-    fetchGames(this.setState);
+    fetchGames(this.setState, this.state.games);
   }
 
   componentDidUpdate() {
@@ -68,15 +68,15 @@ class Games extends React.Component {
         hasErrored={this.state.streamHasErrored}
         isLoading={this.state.streamIsLoading}
         streams={this.state.streams}
-        pagination={this.state.streamPagination}
+        addMore={() => fetchStreams(this.setState, this.state.streams, undefined, this.state.streamCursor)}
       />
     } else {
       list = <GameList
-        title=''
+        title='Top games'
         hasErrored={this.state.gameHasErrored}
         isLoading={this.state.gameIsLoading}
         games={this.state.games}
-        pagination={this.state.gamePagination}
+        addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
       />
     }
 

@@ -4,6 +4,10 @@ $color-navigation: #1f1f23;
 $color-accent: #9147ff;
 $color-text: #efeff1;
 
+$icon-background: #53535f;
+$icon-foreground: #9c9ca8;
+$icon-shadow: #2e2e36;
+
 html {
   font-family: 'Museo Sans', sans-serif;
   box-sizing: border-box;
@@ -101,6 +105,23 @@ h2 {
   padding: 20px;
   width: calc(100vw - 350px);
 
+  .preview {
+    background: $icon-background;
+    color: $icon-foreground;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon {
+    width: 60%;
+    height: 60%;
+    box-shadow: (0 0 $icon-shadow);
+    filter: drop-shadow(-18px 16px 1px $icon-shadow);
+    margin-right: -5%;
+  }
+
   .list {
     width: 100%;
     overflow-x: hidden;
@@ -144,10 +165,20 @@ h2 {
 
     .streamItem {
       width: 460px;
+
+      .preview {
+        height: 248px;
+        width: 440px;
+      }
     }
 
     .gameItem {
       width: 208px;
+
+      .preview {
+        height: 250px;
+        width: 188px;
+      }
     }
   }
 }

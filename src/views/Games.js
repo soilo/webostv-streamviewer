@@ -1,8 +1,8 @@
 import React from 'react';
 
-import GameList from './components/GameList';
-import StreamList from './components/StreamList';
-import { fetchGames, fetchStreams, fetchGameName } from './Api';
+import GameList from '../components/GameList';
+import StreamList from '../components/StreamList';
+import { fetchGames, fetchStreams, fetchGameName } from '../Api';
 
 class Games extends React.Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import { withFocusable } from 'react-tv-navigation';
 import { NavLink as Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faHome, faGamepad, faTv, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faHome, faGamepad, faTv, faStar, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Item = ({focused, setFocus, focusPath, text, link, icon}) => {
   let className = 'item';
@@ -32,6 +32,8 @@ const Navigation = (props) => {
       <MenuItem focusPath='Games' text='Games' link={'/game'} icon={faGamepad} />
       <MenuItem focusPath='Channels' text='Channels' link={'/channel'} icon={faTv} />
       <MenuItem focusPath='Following' text='Following' link={'/follow'} icon={faStar} />
+      <span className='separator'></span>
+      <MenuItem focusPath='LogIn' text='Log in' link={'/login'} icon={faUser} />
     </nav>
     );
 }

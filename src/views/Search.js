@@ -1,6 +1,6 @@
 import React from 'react';
 
-import View from './components/View'
+import View from '../components/View'
 
 const Search = () => {
   return (

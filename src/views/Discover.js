@@ -1,8 +1,8 @@
 import React from 'react';
 
-import GameList from './components/GameList';
-import StreamList from './components/StreamList';
-import { fetchStreams, fetchGames, enrichStreams } from './Api';
+import GameList from '../components/GameList';
+import StreamList from '../components/StreamList';
+import { fetchStreams, fetchGames, enrichStreams } from '../Api';
 
 class Discover extends React.Component {
   constructor(props) {

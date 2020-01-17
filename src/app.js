@@ -9,12 +9,13 @@ import {
 } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
-import Discover from './Discover';
-import Games from './Games';
-import Channels from './Channels';
-import Following from './Following';
-import Search from './Search';
 import Video from './components/Video';
+import Discover from './views/Discover';
+import Games from './views/Games';
+import Channels from './views/Channels';
+import Following from './views/Following';
+import Search from './views/Search';
+import Login from './views/Login';
 import './app.scss';
 
 const App = ({ currentFocusPath }) => {
@@ -30,8 +31,13 @@ const App = ({ currentFocusPath }) => {
           render={(routeProps) => <Discover {...routeProps} />}
         />
         <Route
+          path='/login'
+          render={(routeProps) => <Login {...routeProps} />}
+        />
+        <Route
           path='/game/:id?'
-          render={(routeProps) => <Games {...routeProps} />} />
+          render={(routeProps) => <Games {...routeProps} />}
+        />
         <Route
           path='/channel/:id?'
           render={(routeProps) => <Channels {...routeProps} />}

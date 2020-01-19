@@ -3,7 +3,7 @@ import { withFocusable } from 'react-tv-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-const AddListItem = ({focused, setFocus, focusPath, itemClass, onClick}) => {
+const AddListItem = ({focused, setFocus, focusPath, itemClass}) => {
   let className = 'item ' + itemClass;
   className += (focused) ? ' focused' : ' unfocused';
 
@@ -12,8 +12,6 @@ const AddListItem = ({focused, setFocus, focusPath, itemClass, onClick}) => {
   return (
     <span
       className={className}
-      onClick={ () => onClick() }
-      onEnterPress={ () => onClick() }
       ref={item}
     >
       <div className='preview'>

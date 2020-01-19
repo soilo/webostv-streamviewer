@@ -66,7 +66,7 @@ const StreamList = ({title, hasErrored, isLoading, streams, addMore}) => {
         <AddListItem
           focusPath='addStream'
           itemClass='streamItem'
-          onClick={addMore}
+          onClick={() => addMore()}
           onEnterPress={() => addMore()}
         />
       </div>

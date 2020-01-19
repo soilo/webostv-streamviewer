@@ -68,7 +68,7 @@ class Games extends React.Component {
         hasErrored={this.state.streamHasErrored}
         isLoading={this.state.streamIsLoading}
         streams={this.state.streams}
-        addMore={() => fetchStreams(this.setState, this.state.streams, undefined, this.state.streamCursor)}
+        addMore={() => fetchStreams(this.setState, this.state.streams, this.state.gameId, this.state.streamCursor)}
       />
     } else {
       list = <GameList

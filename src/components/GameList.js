@@ -59,7 +59,7 @@ const GameList = ({title, hasErrored, isLoading, games, addMore}) => {
         <AddListItem
           focusPath='addGames'
           itemClass='gameItem'
-          onClick={addMore}
+          onClick={() => addMore()}
           onEnterPress={() => addMore()}
         />
       </div>

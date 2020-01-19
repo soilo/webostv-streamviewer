@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { concat, filter, flatMap, forEach, join } from 'lodash-es'
+import { filter, flatMap, forEach, join, unionBy } from 'lodash-es'
 
 const clientId = '***REMOVED***';
 const api = 'https://api.twitch.tv/helix/';
@@ -7,46 +7,48 @@ const api = 'https://api.twitch.tv/helix/';
 export const fetchStreams = (callback, streams, id, cursor) => {
   callback({ streamIsLoading: true });
 
-  let queryParams = '';
+  let params = [];
   if (id) {
-    queryParams += 'game_id=' + id;
+    params.push('game_id=' + id);
   }
   if (cursor) {
-    if (queryParams.length > 0) {
-      queryParams += '&'
-    }
-    queryParams += 'after=' + cursor;
+    params.push('after=' + cursor);
   }
+  let queryParams = params.length > 0 ? '?' + join(params, '&') : '';
 
   request
-    .get(api + 'streams')
-    .query(queryParams)
+    .get(api + 'streams' + queryParams)
     .set({ 'Client-ID': clientId })
     .accept('json')
     .then(res => callback({
       streamIsLoading: false,
-      streams: concat(streams, res.body.data),
+      streams: unionBy(streams, res.body.data, 'id'),
       streamCursor: res.body.pagination.cursor
     }))
-    .catch(err => callback({ steamHasErrored: true }));
+    .catch(err => {
+      console.log(err);
+      callback({ steamHasErrored: true });
+    });
 }
 
 export const fetchGames = (callback, games, cursor) => {
   callback({ gameIsLoading: true });
 
-  let queryParams = (cursor ? 'after=' + cursor : '');
+  let queryParams = (cursor ? '?after=' + cursor : '');
 
   request
-    .get(api + 'games/top')
-    .query(queryParams)
+    .get(api + 'games/top' + queryParams)
     .set({ 'Client-ID': clientId })
     .accept('json')
     .then(res => callback({
       gameIsLoading: false,
-      games: concat(games, res.body.data),
+      games: unionBy(games, res.body.data, 'id'),
       gameCursor: res.body.pagination.cursor
     }))
-    .catch(err => callback({ gameHasErrored: true }));
+    .catch(err => {
+      console.log(err);
+      callback({ gameHasErrored: true })
+    });
 }
 
 export const fetchGameName = (callback, id) => {
@@ -79,7 +81,9 @@ export const enrichStreams = (callback, streams) => {
               (game) => game.id === stream.game_id
             )[0]
 
-            stream.game = potentialGame ? potentialGame : {id: '-1', name: '', box_art_url: ''}
+            stream.game = potentialGame ?
+              potentialGame :
+              { id: '-1', name: '', box_art_url: '' }
           })
           callback({ streams: streams })
         })

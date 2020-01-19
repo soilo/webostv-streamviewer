@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
-import Video from './components/Video';
+import Player from './components/Player';
 import Discover from './views/Discover';
 import Games from './views/Games';
 import Channels from './views/Channels';
@@ -52,7 +52,7 @@ const App = ({ currentFocusPath }) => {
         />
         <Route
           path='/stream/:channel?'
-          render={(routeProps) => <Video {...routeProps} />}
+          render={(routeProps) => <Player {...routeProps} />}
         />
       </Switch>
     </Router>

@@ -64,7 +64,7 @@ const StreamList = ({title, hasErrored, isLoading, streams, addMore}) => {
     <div>
       <h2>{title}</h2>
       <div className='list streamList' ref={scrollRef} >
-        { streams.map((stream, index) =>(
+        { streams.map((stream, index) => (
           <StreamItem
             key={stream.id}
             focusPath={stream.id}

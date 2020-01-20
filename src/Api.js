@@ -3,6 +3,7 @@ import { filter, flatMap, forEach, join, unionBy } from 'lodash-es'
 
 const clientId = '***REMOVED***';
 const api = 'https://api.twitch.tv/helix/';
+const searchApi = 'https://api.twitch.tv/kraken/search/'
 
 export const fetchStreams = (callback, streams, id, cursor) => {
   callback({ streamIsLoading: true });
@@ -66,12 +67,11 @@ export const enrichStreams = (callback, streams) => {
       streams.length > 0) {
     const enrichables = filter(streams, (stream) => !stream.game);
     const paramMap = flatMap(enrichables, (stream) => 'id=' + stream.game_id);
-    const queryParams = join(paramMap, '&');
+    const queryParams = '?' + join(paramMap, '&');
 
     if (enrichables.length > 0) {
       request
-        .get(api + 'games')
-        .query(queryParams)
+        .get(api + 'games' + queryParams)
         .set({ 'Client-ID': clientId })
         .accept('json')
         .then(res => {
@@ -94,4 +94,36 @@ export const enrichStreams = (callback, streams) => {
         });
     }
   }
+}
+
+export const searchChannels = (callback, query) => {
+  callback({ channelIsLoading: true });
+
+  request
+    .get(searchApi + 'channels?' + query)
+    .accept('application/vnd.twitchtv.v5+json')
+    .then(res => callback({
+      channelIsLoading: false,
+      channels: res.body.channels
+    }))
+    .catch(err => {
+      console.log(err);
+      callback({ channelHasErrored: true })
+    });
+}
+
+export const searchGames = (callback, query) => {
+  callback({ gameIsLoading: true });
+
+  request
+    .get(searchApi + 'games?' + query)
+    .accept('application/vnd.twitchtv.v5+json')
+    .then(res => callback({
+      gameIsLoading: false,
+      games: res.body.channels
+    }))
+    .catch(err => {
+      console.log(err);
+      callback({ gameHasErrored: true })
+    });
 }

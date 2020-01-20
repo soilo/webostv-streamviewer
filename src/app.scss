@@ -92,12 +92,12 @@ h2 {
       border: 0;
     }
 
-    &.sselected {
+    &.selected {
       background: $color-background;
     }
 
     svg {
-      margin: 0 40px 0 20px;
+      margin: 0 20px;
     }
   }
 

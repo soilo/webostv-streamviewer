@@ -67,14 +67,14 @@ const StreamList = ({title, hasErrored, isLoading, streams, addMore}) => {
         { streams.map((stream, index) =>(
           <StreamItem
             key={stream.id}
-            focusPath={`streams/${stream.id}`}
+            focusPath={stream.id}
             stream={stream}
             scroll={scrollToMiddle}
             index={index}
           />
         ))}
         <AddListItem
-          focusPath='streams/addStream'
+          focusPath='addStream'
           itemClass='streamItem'
           onClick={() => addMore()}
           onEnterPress={() => addMore()}

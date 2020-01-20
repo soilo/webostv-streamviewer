@@ -57,14 +57,14 @@ const GameList = ({title, hasErrored, isLoading, games, addMore}) => {
         { games.map((game, index) => (
           <GameItem
             key={game.id}
-            focusPath={`games/${game.id}`}
+            focusPath={game.id}
             game={game}
             scroll={scrollToMiddle}
             index={index}
           />
         ))}
         <AddListItem
-          focusPath='games/addGames'
+          focusPath='addGames'
           itemClass='gameItem'
           onClick={() => addMore()}
           onEnterPress={() => addMore()}

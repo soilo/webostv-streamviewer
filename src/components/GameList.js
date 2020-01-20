@@ -1,15 +1,12 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
-import scrollIntoView from 'scroll-into-view-if-needed';
 
 import AddListItem from './AddListItem';
 
-const GameListItem = ({focused, setFocus, focusPath, game}) => {
+const GameListItem = ({focused, setFocus, focusPath, game, scroll, index}) => {
   let className = 'item gameItem';
   className += (focused) ? ' focused' : ' unfocused';
-
-  const item = React.createRef();
 
   const box_art_url = game.box_art_url
     .replace('{width}', '188')
@@ -17,13 +14,9 @@ const GameListItem = ({focused, setFocus, focusPath, game}) => {
 
   return (
     <Link
-      to={`/game/${game.id}`} className={className}
-      onFocus={ () => scrollIntoView(item.current, {
-        scrollMode: 'if-needed',
-        behaviour: 'smooth',
-        inline: 'nearest'
-      }) }
-      ref={item}
+      to={`/game/${game.id}`}
+      className={className}
+      onFocus={() => scroll(index)}
     >
       <div className='preview'>
         <img src={box_art_url} alt='boxart' />
@@ -45,22 +38,38 @@ const GameList = ({title, hasErrored, isLoading, games, addMore}) => {
   }
 
   const GameItem = withFocusable(GameListItem);
+  const scrollRef = React.createRef();
+
+  const scrollToMiddle = (index) => {
+    if (scrollRef.current) {
+      const itemWidth = scrollRef.current.getElementsByClassName('item')[0].offsetWidth;
+      scrollRef.current.scrollTo({
+        left: index * itemWidth - 300,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   return (
     <div>
       <h2>{title}</h2>
-      <div className='list gameList'>
-        { games.map((game) => (
+      <div className='list gameList' ref={scrollRef}>
+        { games.map((game, index) => (
           <GameItem
             key={game.id}
-            focusPath={game.id}
-            game={game} />
+            focusPath={`games/${game.id}`}
+            game={game}
+            scroll={scrollToMiddle}
+            index={index}
+          />
         ))}
         <AddListItem
-          focusPath='addGames'
+          focusPath='games/addGames'
           itemClass='gameItem'
           onClick={() => addMore()}
           onEnterPress={() => addMore()}
+          scroll={scrollToMiddle}
+          index={games.length}
         />
       </div>
     </div>

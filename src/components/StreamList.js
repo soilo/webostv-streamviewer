@@ -1,11 +1,10 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
-import scrollIntoView from 'scroll-into-view-if-needed';
 
 import AddListItem from './AddListItem';
 
-const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
+const StreamListItem = ({focused, setFocus, focusPath, stream, scroll, index}) => {
   let className = 'item streamItem';
   className += (focused) ? ' focused' : ' unfocused';
 
@@ -21,12 +20,9 @@ const StreamListItem = ({focused, setFocus, focusPath, stream}) => {
 
   return (
     <Link
-      to={`/stream/${stream.user_name}`} className={className}
-      onFocus={ () => scrollIntoView(item.current, {
-        scrollMode: 'if-needed',
-        behaviour: 'smooth',
-        inline: 'nearest'
-      }) }
+      to={`/stream/${stream.user_name}`}
+      className={className}
+      onFocus={ () => scroll(index) }
       ref={item}
     >
       <div className='preview'>
@@ -52,22 +48,38 @@ const StreamList = ({title, hasErrored, isLoading, streams, addMore}) => {
   }
 
   const StreamItem = withFocusable(StreamListItem);
+  const scrollRef = React.createRef();
+
+  const scrollToMiddle = (index) => {
+    if(scrollRef.current) {
+      const itemWidth = scrollRef.current.getElementsByClassName('item')[0].offsetWidth;
+      scrollRef.current.scrollTo({
+        left: index * itemWidth - 300,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   return (
     <div>
       <h2>{title}</h2>
-      <div className='list streamList'>
-        { streams.map((stream) =>(
+      <div className='list streamList' ref={scrollRef} >
+        { streams.map((stream, index) =>(
           <StreamItem
             key={stream.id}
-            focusPath={stream.id}
-            stream={stream}/>
+            focusPath={`streams/${stream.id}`}
+            stream={stream}
+            scroll={scrollToMiddle}
+            index={index}
+          />
         ))}
         <AddListItem
-          focusPath='addStream'
+          focusPath='streams/addStream'
           itemClass='streamItem'
           onClick={() => addMore()}
           onEnterPress={() => addMore()}
+          scroll={scrollToMiddle}
+          index={streams.length}
         />
       </div>
     </div>

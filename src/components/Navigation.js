@@ -16,7 +16,7 @@ const Item = ({focused, setFocus, focusPath, text, link, icon}) => {
   )
 }
 
-const Navigation = (props) => {
+const Navigation = () => {
   const MenuItem = withFocusable(Item);
 
   return (
@@ -27,13 +27,13 @@ const Navigation = (props) => {
           <span className='white'>Viewer</span>
         </h1>
       </div>
-      <MenuItem focusPath='Search' text='Search' link={'/search'} icon={faSearch} />
-      <MenuItem focusPath='Discover' text='Discover' link={'/'} icon={faHome} />
-      <MenuItem focusPath='Games' text='Games' link={'/game'} icon={faGamepad} />
-      <MenuItem focusPath='Channels' text='Channels' link={'/channel'} icon={faTv} />
-      <MenuItem focusPath='Following' text='Following' link={'/follow'} icon={faStar} />
+      <MenuItem focusPath='nav/Search' text='Search' link={'/search'} icon={faSearch} />
+      <MenuItem focusPath='nav/Discover' text='Discover' link={'/'} icon={faHome} />
+      <MenuItem focusPath='nav/Games' text='Games' link={'/game'} icon={faGamepad} />
+      <MenuItem focusPath='nav/Channels' text='Channels' link={'/channel'} icon={faTv} />
+      <MenuItem focusPath='nav/Following' text='Following' link={'/follow'} icon={faStar} />
       <span className='separator'></span>
-      <MenuItem focusPath='LogIn' text='Log in' link={'/login'} icon={faUser} />
+      <MenuItem focusPath='nav/LogIn' text='Log in' link={'/login'} icon={faUser} />
     </nav>
     );
 }

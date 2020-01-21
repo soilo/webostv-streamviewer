@@ -1,9 +1,13 @@
 import React from 'react';
-import { withFocusable } from 'react-tv-navigation'
-import { union, take } from 'lodash-es';
+import { slice, union, uniq } from 'lodash-es';
 
+import SearchHistory from '../components/SearchHistory';
+import Input from '../components/Input';
+import Button from '../components/Button';
 import GameList from '../components/GameList';
 import StreamList from '../components/StreamList';
+
+import { searchChannels, searchGames } from '../Api';
 
 class Search extends React.Component {
   constructor(props) {
@@ -23,15 +27,15 @@ class Search extends React.Component {
 
   search() {
     let queryArray = [this.state.query];
-    let newHistory = union(queryArray, this.state.history);
-    console.log(this.state.query);
-    console.log(queryArray);
-    console.log(newHistory);
+    let newHistory = slice(uniq(union(queryArray, this.state.history)), 0, 5);
+
+    searchChannels(this.setState, this.state.query);
+    searchGames(this.setState, this.state.query);
+
+    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
     this.setState({
-      history: take(union(queryArray, this.state.history), 5)
+      history: newHistory
     })
-    localStorage.setItem('searchHistory', JSON.stringify(this.state.history));
-    console.log(this.state.history)
   }
 
   componentDidMount() {
@@ -45,27 +49,28 @@ class Search extends React.Component {
     return (
       <div>
         <div>
-          <ul>
-            { this.state.history.map((query) => (
-              <li>{query}</li>
-            ))}
-          </ul>
+          {/* <SearchHistory
+            history={this.state.history}
+            search={() => console.log('search again')}
+          /> */}
 
-          <input
-            type="text"
+          <Input
+            key='searchInput'
+            focusPath='searchInput'
+            type='text'
             value={this.state.query}
-            onBlur={event => {
+            action={(event) => {
               this.setState({ query: event.target.value })
             }}
           />
 
-          <button onClick={() => this.search()}>
+          <Button
+            key='searchButton'
+            focusPath='searchButton'
+            action={() => this.search()}
+          >
             Search
-          </button>
-
-          <button onClick={() => clearStorage('Search')}>
-            Clear
-          </button>
+          </Button>
         </div>
 
         <StreamList

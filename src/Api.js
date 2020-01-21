@@ -100,7 +100,8 @@ export const searchChannels = (callback, query) => {
   callback({ channelIsLoading: true });
 
   request
-    .get(searchApi + 'channels?' + query)
+    .get(searchApi + 'channels?query=' + query)
+    .set({ 'Client-ID': clientId })
     .accept('application/vnd.twitchtv.v5+json')
     .then(res => callback({
       channelIsLoading: false,
@@ -116,7 +117,8 @@ export const searchGames = (callback, query) => {
   callback({ gameIsLoading: true });
 
   request
-    .get(searchApi + 'games?' + query)
+    .get(searchApi + 'games?query=' + query)
+    .set({ 'Client-ID': clientId })
     .accept('application/vnd.twitchtv.v5+json')
     .then(res => callback({
       gameIsLoading: false,

@@ -4,8 +4,7 @@ import { slice, union, uniq } from 'lodash-es';
 import SearchHistory from '../components/SearchHistory';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import GameList from '../components/GameList';
-import StreamList from '../components/StreamList';
+import List from '../components/List';
 
 import { searchChannels, searchGames } from '../Api';
 
@@ -14,10 +13,10 @@ class Search extends React.Component {
     super(props);
     this.state = {
       channelHasErrored: false,
-      channelIsLoading: true,
+      channelIsLoading: false,
       channels: [],
       gameHasErrored: false,
-      gameIsLoading: true,
+      gameIsLoading: false,
       games: [],
       query: '',
       history: []
@@ -29,8 +28,9 @@ class Search extends React.Component {
     let queryArray = [this.state.query];
     let newHistory = slice(uniq(union(queryArray, this.state.history)), 0, 5);
 
-    searchChannels(this.setState, this.state.query);
-    searchGames(this.setState, this.state.query);
+    let encodedQuery = encodeURIComponent(this.state.query);
+    searchChannels(this.setState, encodedQuery);
+    searchGames(this.setState, encodedQuery);
 
     localStorage.setItem('searchHistory', JSON.stringify(newHistory));
     this.setState({
@@ -47,48 +47,52 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          {/* <SearchHistory
-            history={this.state.history}
-            search={() => console.log('search again')}
-          /> */}
+      <div className='view Search'>
+        <h1>Search</h1>
 
-          <Input
-            key='searchInput'
-            focusPath='searchInput'
-            type='text'
-            value={this.state.query}
-            action={(event) => {
-              this.setState({ query: event.target.value })
-            }}
+        {/* <SearchHistory
+          history={this.state.history}
+          search={() => console.log('search again')}
+        /> */}
+
+        <Input
+          key='searchInput'
+          focusPath='searchInput'
+          type='text'
+          value={this.state.query}
+          action={(event) => {
+            this.setState({ query: event.target.value })
+          }}
+        />
+
+        <Button
+          key='searchButton'
+          focusPath='searchButton'
+          action={() => this.search()}
+        >
+          Search
+        </Button>
+
+        { this.state.channels && this.state.channels.length > 0 &&
+          <List
+            title='Channels'
+            hasErrored={this.state.channelHasErrored}
+            isLoading={this.state.channelIsLoading}
+            type='channelSearch'
+            items={this.state.channels}
           />
+        }
 
-          <Button
-            key='searchButton'
-            focusPath='searchButton'
-            action={() => this.search()}
-          >
-            Search
-          </Button>
-        </div>
-
-        <StreamList
-          title='Channels'
-          hasErrored={this.state.channelHasErrored}
-          isLoading={this.state.channelIsLoading}
-          streams={this.state.channels}
-        />
-
-        <GameList
-          title='Games'
-          hasErrored={this.state.gameHasErrored}
-          isLoading={this.state.gameIsLoading}
-          games={this.state.games}
-        />
+        { this.state.games && this.state.games.length > 0 &&
+          <List
+            title='Games'
+            hasErrored={this.state.gameHasErrored}
+            isLoading={this.state.gameIsLoading}
+            type='gameSearch'
+            items={this.state.games}
+          />
+        }
       </div>
-
-
     );
   }
 }

@@ -122,7 +122,7 @@ export const searchGames = (callback, query) => {
     .accept('application/vnd.twitchtv.v5+json')
     .then(res => callback({
       gameIsLoading: false,
-      games: res.body.channels
+      games: res.body.games
     }))
     .catch(err => {
       console.log(err);

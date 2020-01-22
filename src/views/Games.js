@@ -1,7 +1,6 @@
 import React from 'react';
 
-import GameList from '../components/GameList';
-import StreamList from '../components/StreamList';
+import List from '../components/List';
 import { fetchGames, fetchStreams, fetchGameName } from '../Api';
 
 class Games extends React.Component {
@@ -63,19 +62,21 @@ class Games extends React.Component {
     let list;
 
     if (this.state.gameId) {
-      list = <StreamList
+      list = <List
         title={this.state.gameName ? this.state.gameName : ''}
         hasErrored={this.state.streamHasErrored}
         isLoading={this.state.streamIsLoading}
-        streams={this.state.streams}
+        items={this.state.streams}
+        type='streamList'
         addMore={() => fetchStreams(this.setState, this.state.streams, this.state.gameId, this.state.streamCursor)}
       />
     } else {
-      list = <GameList
+      list = <List
         title='Top games'
         hasErrored={this.state.gameHasErrored}
         isLoading={this.state.gameIsLoading}
-        games={this.state.games}
+        items={this.state.games}
+        type='gameList'
         addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
       />
     }

@@ -111,6 +111,31 @@ h2 {
   padding: 20px;
   width: calc(100vw - 350px);
 
+  input {
+    height: 70px;
+    border: 10px solid $color-background;
+    padding: 0 10px;
+    font-size: 16px;
+
+    &.focused {
+      border-color: $color-accent;
+    }
+  }
+
+  button{
+    height: 70px;
+    border: 10px solid $color-background;
+    padding: 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+
+    &.focused {
+      border-color: $color-accent;
+      background: $color-accent;
+      color: $color-text;
+    }
+  }
+
   .preview {
     background: $icon-background;
     color: $icon-foreground;
@@ -141,7 +166,6 @@ h2 {
       vertical-align: top;
 
       .titles {
-        font-size: 20px;
         line-height: 1.35;
         padding: 8px;
       }
@@ -151,12 +175,14 @@ h2 {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-size: 24px;
         font-weight: bold;
         margin-bottom: 5px;
       }
 
       .subtitle {
         display: block;
+        font-size: 18px;
       }
 
       &.focused {

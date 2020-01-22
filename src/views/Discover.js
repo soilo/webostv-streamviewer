@@ -1,7 +1,6 @@
 import React from 'react';
 
-import GameList from '../components/GameList';
-import StreamList from '../components/StreamList';
+import List from '../components/List';
 import { fetchStreams, fetchGames, enrichStreams } from '../Api';
 
 class Discover extends React.Component {
@@ -33,18 +32,20 @@ class Discover extends React.Component {
     return (
       <div className='view Discover'>
         <h1>Discover</h1>
-        <StreamList
+        <List
           title='Live streams'
           hasErrored={this.state.streamHasErrored}
           isLoading={this.state.streamIsLoading}
-          streams={this.state.streams}
+          items={this.state.streams}
+          type='streamList'
           addMore={() => fetchStreams(this.setState, this.state.streams, undefined, this.state.streamCursor)}
         />
-        <GameList
+        <List
           title='Top games'
           hasErrored={this.state.gameHasErrored}
           isLoading={this.state.gameIsLoading}
-          games={this.state.games}
+          items={this.state.games}
+          type='gameList'
           addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
         />
       </div>

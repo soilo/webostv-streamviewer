@@ -111,10 +111,10 @@ h2 {
   padding: 20px;
   width: calc(100vw - 350px);
 
-  input {
+  .input {
     height: 70px;
     border: 10px solid $color-background;
-    padding: 0 10px;
+    padding: 10px;
     font-size: 16px;
 
     &.focused {
@@ -122,12 +122,12 @@ h2 {
     }
   }
 
-  button{
+  .button {
     height: 70px;
     border: 10px solid $color-background;
-    padding: 0 10px;
+    padding: 10px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: bold;
 
     &.focused {
       border-color: $color-accent;
@@ -143,14 +143,6 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .icon {
-    width: 60%;
-    height: 60%;
-    box-shadow: (0 0 $icon-shadow);
-    filter: drop-shadow(-18px 16px 1px $icon-shadow);
-    margin-right: -5%;
   }
 
   .list {
@@ -211,6 +203,44 @@ h2 {
         height: 250px;
         width: 188px;
       }
+    }
+
+    .icon {
+      width: 60%;
+      height: 60%;
+      box-shadow: (0 0 $icon-shadow);
+      filter: drop-shadow(-18px 16px 1px $icon-shadow);
+      margin-right: -5%;
+    }
+  }
+
+  .searchHeader {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .history {
+    border: 10px solid transparent;
+  }
+
+  .historyItem {
+    background: none;
+    border: 10px solid transparent;
+    display: block;
+    color: $color-text;
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+    }
+
+    &.focused {
+      background: $color-accent;
+      border-color: $color-accent;
     }
   }
 }

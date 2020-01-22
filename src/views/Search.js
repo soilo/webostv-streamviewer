@@ -50,28 +50,35 @@ class Search extends React.Component {
       <div className='view Search'>
         <h1>Search</h1>
 
-        {/* <SearchHistory
-          history={this.state.history}
-          search={() => console.log('search again')}
-        /> */}
+        <div className='searchHeader'>
+          { this.state.history && this.state.history.length > 0 &&
+            <SearchHistory
+              history={this.state.history}
+              search={(query) => {
+                this.setState({ query: query});
+                this.search();
+              }}
+            />
+          }
 
-        <Input
-          key='searchInput'
-          focusPath='searchInput'
-          type='text'
-          value={this.state.query}
-          action={(event) => {
-            this.setState({ query: event.target.value })
-          }}
-        />
+          <Input
+            key='searchInput'
+            focusPath='searchInput'
+            type='text'
+            value={this.state.query}
+            action={(event) => {
+              this.setState({ query: event.target.value })
+            }}
+          />
 
-        <Button
-          key='searchButton'
-          focusPath='searchButton'
-          action={() => this.search()}
-        >
-          Search
-        </Button>
+          <Button
+            key='searchButton'
+            focusPath='searchButton'
+            action={() => this.search()}
+          >
+            Search
+          </Button>
+        </div>
 
         { this.state.channels && this.state.channels.length > 0 &&
           <List

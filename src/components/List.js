@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 import AddListItem from './AddListItem';

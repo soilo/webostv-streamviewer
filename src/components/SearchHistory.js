@@ -1,17 +1,21 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 
-const HistoryItem = ({ focused, setFocus, focusPath, children }) => {
+const HistoryItem = ({ focused, setFocus, focusPath, text, search }) => {
   let className = 'historyItem';
   className += (focused) ? ' focused' : ' unfocused';
 
   return (
-    <span className={className}>
+    <button
+      className={className}
+      onClick={() => search(text)}
+      onPressEnter={() => search(text)}
+    >
       <FontAwesomeIcon className='icon' icon={faClock} />
-      <span>{children}</span>
-    </span>
+      <span>{text}</span>
+    </button>
   );
 }
 
@@ -21,15 +25,13 @@ const SearchHistory = ({history, search}) => {
 
   return (
     <div className='history'>
-      { history.map((text) => (
+      { history.map((text, index) => (
         <SearchHistoryItem
-          key={text}
-          focusPath={text}
-          onClick={() => search(text)}
-          onPressEnter={() => search(text)}
-        >
-          {text}
-        </SearchHistoryItem>
+          key={`history-item-${index}`}
+          focusPath={`history-item-${index}`}
+          text={text}
+          search={search}
+        />
       ))}
     </div>
   );

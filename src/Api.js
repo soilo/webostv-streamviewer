@@ -1,7 +1,7 @@
 import request from 'superagent';
-import { filter, flatMap, forEach, join, unionBy } from 'lodash-es'
+import { filter, flatMap, forEach, join, unionBy } from 'lodash-es';
+import { clientId, clientSecret } from './config';
 
-const clientId = '***REMOVED***';
 const api = 'https://api.twitch.tv/helix/';
 const searchApi = 'https://api.twitch.tv/kraken/search/'
 

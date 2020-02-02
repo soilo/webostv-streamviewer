@@ -82,8 +82,11 @@ h2 {
     text-decoration: none;
     text-transform: uppercase;
 
-    &.focused {
+    &.active {
       background-color: $color-background;
+    }
+
+    &.focused {
       border-color: $color-accent;
       cursor: pointer;
     }
@@ -221,11 +224,14 @@ h2 {
 
   .history {
     border: 10px solid transparent;
+    border-right: 0;
+    width: 200px;
   }
 
   .historyItem {
     background: none;
     border: 10px solid transparent;
+    padding: 0;
     display: block;
     color: $color-text;
     font-size: 16px;

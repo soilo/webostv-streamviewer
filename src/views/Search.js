@@ -1,6 +1,7 @@
 import React from 'react';
 import { slice, union, uniq } from 'lodash-es';
 
+import View from '../components/View';
 import SearchHistory from '../components/SearchHistory';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -25,17 +26,19 @@ class Search extends React.Component {
   }
 
   search() {
-    let queryArray = [this.state.query];
-    let newHistory = slice(uniq(union(queryArray, this.state.history)), 0, 5);
+    if (this.state.query) {
+      let queryArray = [this.state.query];
+      let newHistory = slice(uniq(union(queryArray, this.state.history)), 0, 5);
 
-    let encodedQuery = encodeURIComponent(this.state.query);
-    searchChannels(this.setState, encodedQuery);
-    searchGames(this.setState, encodedQuery);
+      let encodedQuery = encodeURIComponent(this.state.query);
+      searchChannels(this.setState, encodedQuery);
+      searchGames(this.setState, encodedQuery);
 
-    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
-    this.setState({
-      history: newHistory
-    })
+      localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+      this.setState({
+        history: newHistory
+      })
+    }
   }
 
   componentDidMount() {
@@ -47,25 +50,22 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className='view Search'>
-        <h1>Search</h1>
-
+      <View title='Search'>
         <div className='searchHeader'>
-          { this.state.history && this.state.history.length > 0 &&
-            <SearchHistory
-              history={this.state.history}
-              search={(query) => {
-                this.setState({ query: query});
-                this.search();
-              }}
-            />
-          }
+          <SearchHistory
+            history={this.state.history}
+            search={(query) => {
+              this.setState({ query: query});
+              this.search();
+            }}
+          />
 
           <Input
             key='searchInput'
             focusPath='searchInput'
             type='text'
             value={this.state.query}
+            placeholder='Search'
             action={(event) => {
               this.setState({ query: event.target.value })
             }}
@@ -99,7 +99,7 @@ class Search extends React.Component {
             items={this.state.games}
           />
         }
-      </div>
+      </View>
     );
   }
 }

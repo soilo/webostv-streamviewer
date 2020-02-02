@@ -1,10 +1,12 @@
 import React from 'react';
 
-import View from '../components/View'
+import View from '../components/View';
 
 const Following = () => {
   return (
-    <View title='Following' />
+    <View title='Following'>
+
+    </View>
   );
 }
 

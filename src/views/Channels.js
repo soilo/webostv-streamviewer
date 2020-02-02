@@ -4,7 +4,9 @@ import View from '../components/View'
 
 const Channels = () => {
   return (
-    <View title='Channels' />
+    <View title='Channels'>
+
+    </View>
   );
 }
 

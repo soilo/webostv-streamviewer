@@ -25,7 +25,7 @@ const SearchHistory = ({history, search}) => {
 
   return (
     <div className='history'>
-      { history.map((text, index) => (
+      { history && history.length > 0 && history.map((text, index) => (
         <SearchHistoryItem
           key={`history-item-${index}`}
           focusPath={`history-item-${index}`}

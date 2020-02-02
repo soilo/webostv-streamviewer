@@ -23,11 +23,11 @@ const App = ({ currentFocusPath }) => {
   return (
     <Router>
       <Navigation />
-      <Redirect from='' exact to='/' />
+      <Redirect from='' exact to='/discover' />
       <Switch>
         <Route
           exact
-          path='/'
+          path='/discover'
           render={(routeProps) => <Discover {...routeProps} />}
         />
         <Route

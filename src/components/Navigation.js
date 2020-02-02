@@ -34,7 +34,7 @@ const Navigation = () => {
         </h1>
       </div>
       <MenuItem focusPath='Search' text='Search' link={'/search'} icon={faSearch} />
-      <MenuItem focusPath='Discover' text='Discover' link={'/'} icon={faHome} />
+      <MenuItem focusPath='Discover' text='Discover' link={'/discover'} icon={faHome} />
       <MenuItem focusPath='Games' text='Games' link={'/game'} icon={faGamepad} />
       <MenuItem focusPath='Channels' text='Channels' link={'/channel'} icon={faTv} />
       <MenuItem focusPath='Following' text='Following' link={'/follow'} icon={faStar} />

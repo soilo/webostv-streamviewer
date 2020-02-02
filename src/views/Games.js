@@ -1,5 +1,6 @@
 import React from 'react';
 
+import View from '../components/View';
 import List from '../components/List';
 import { fetchGames, fetchStreams, fetchGameName } from '../Api';
 
@@ -82,10 +83,9 @@ class Games extends React.Component {
     }
 
     return (
-      <div className='view Games'>
-        <h1>Games</h1>
+      <View title='view Games'>
         {list}
-      </div>
+      </View>
     );
   }
 }

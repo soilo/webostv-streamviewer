@@ -4,7 +4,9 @@ import View from '../components/View'
 
 const Login = () => {
   return (
-    <View title='Login' />
+    <View title='Login'>
+
+    </View>
   );
 }
 

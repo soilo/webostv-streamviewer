@@ -1,7 +1,7 @@
 import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 
-const Input = ({focused, setFocus, focusPath, type, value, action }) => {
+const Input = ({focused, setFocus, focusPath, type, value, placeholder, action }) => {
   let className = 'input '
   className += focused ? 'focused' : 'unfocused'
 
@@ -10,6 +10,7 @@ const Input = ({focused, setFocus, focusPath, type, value, action }) => {
       className={className}
       type={type}
       value={value}
+      placeholder={placeholder}
       onBlur={(event) => action(event)}
     />
   );

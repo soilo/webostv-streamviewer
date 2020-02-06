@@ -4,7 +4,7 @@ import View from '../components/View';
 import List from '../components/List';
 import { fetchGames, fetchStreams, fetchGameName } from '../Api';
 
-class Games extends React.Component {
+class Games extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

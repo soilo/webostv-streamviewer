@@ -34,7 +34,7 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 32px;
 }
 
 #app {
@@ -67,7 +67,7 @@ h2 {
     display: flex;
     align-items: center;
 
-    height: 70px;
+    height: 80px;
     width: 310px;
     border: 10px solid transparent;
     margin: 0 -20px;
@@ -76,7 +76,7 @@ h2 {
 
     background-color: $color-navigation;
     color: $color-text;
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 0.5px;
     text-align: left;
     text-decoration: none;
@@ -111,25 +111,33 @@ h2 {
 
 .view {
   flex-grow: 1;
-  padding: 20px;
-  width: calc(100vw - 350px);
+  border: 20px solid transparent;
+  width: calc(100vw - 310px);
 
-  .input {
-    height: 70px;
+  .input-wrapper {
     border: 10px solid $color-background;
-    padding: 10px;
-    font-size: 16px;
+    padding: 0;
 
-    &.focused {
+    &.focused{
+      border-color: $color-accent;
+    }
+
+    &:has(.focused) {
       border-color: $color-accent;
     }
   }
 
+  .input {
+    height: 60px;
+    padding: 10px;
+    font-size: 20px;
+  }
+
   .button {
-    height: 70px;
+    height: 80px;
     border: 10px solid $color-background;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
 
     &.focused {
@@ -149,7 +157,9 @@ h2 {
   }
 
   .list {
-    width: 100%;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    padding: 0 20px;
     overflow-x: hidden;
     white-space: nowrap;
 
@@ -170,14 +180,14 @@ h2 {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 24px;
+        font-size: 28px;
         font-weight: bold;
         margin-bottom: 5px;
       }
 
       .subtitle {
         display: block;
-        font-size: 18px;
+        font-size: 22px;
       }
 
       &.focused {
@@ -234,13 +244,13 @@ h2 {
     padding: 0;
     display: block;
     color: $color-text;
-    font-size: 16px;
+    font-size: 20px;
     width: 100%;
     text-align: left;
 
     .icon {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       margin-right: 10px;
     }
 

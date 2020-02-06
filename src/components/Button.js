@@ -9,7 +9,6 @@ const Button = ({focused, setFocus, focusPath, action, children }) => {
     <button
       className={className}
       onClick={() => action()}
-      onPressEnter={() => action()}
     >
       {children}
     </button>

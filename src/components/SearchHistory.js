@@ -11,7 +11,6 @@ const HistoryItem = ({ focused, setFocus, focusPath, text, search }) => {
     <button
       className={className}
       onClick={() => search(text)}
-      onPressEnter={() => search(text)}
     >
       <FontAwesomeIcon className='icon' icon={faClock} />
       <span>{text}</span>

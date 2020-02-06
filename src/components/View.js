@@ -1,6 +1,6 @@
 import React from 'react'
 
-class View extends React.Component {
+class View extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

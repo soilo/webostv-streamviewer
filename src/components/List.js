@@ -172,8 +172,8 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
       <div className={`list ${listClassName}`} ref={scrollRef}>
         { items.map((item, index) => (
           <Item
-            key={item.id ? item.id : item._id}
-            focusPath={item.id ? '' + item.id : '' + item._id}
+            key={`${listClassName}Item-${index}`}
+            focusPath={`${listClassName}Item-${index}`}
             item={item}
             scroll={scrollToMiddle}
             index={index}
@@ -185,7 +185,6 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
             focusPath={addMorePath}
             itemClass={addMoreClass}
             onClick={() => addMore()}
-            onEnterPress={() => addMore()}
             scroll={scrollToMiddle}
             index={items.length}
           />

@@ -159,10 +159,7 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
   const scrollToMiddle = (index) => {
     if (scrollRef.current) {
       const itemWidth = scrollRef.current.getElementsByClassName('item')[0].offsetWidth;
-      scrollRef.current.scrollTo({
-        left: index * itemWidth - 300,
-        behavior: 'smooth'
-      });
+      scrollRef.current.scrollLeft = index * itemWidth - 300;
     }
   }
 

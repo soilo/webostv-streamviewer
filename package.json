@@ -30,7 +30,8 @@
     "react-router-dom": "^5.1.2",
     "react-tv": "^0.4.3",
     "react-tv-navigation": "^0.4.3",
-    "superagent": "^5.1.3"
+    "superagent": "^5.1.3",
+    "twitch-embed": "^1.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",

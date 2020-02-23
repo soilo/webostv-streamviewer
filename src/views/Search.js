@@ -52,14 +52,6 @@ class Search extends React.PureComponent {
     return (
       <View title='Search'>
         <div className='searchHeader'>
-          <SearchHistory
-            history={this.state.history}
-            search={(query) => {
-              this.setState({ query: query});
-              this.search();
-            }}
-          />
-
           <Input
             key='searchInput'
             focusPath='searchInput'
@@ -78,6 +70,14 @@ class Search extends React.PureComponent {
           >
             Search
           </Button>
+
+          <SearchHistory
+            history={this.state.history}
+            search={(query) => {
+              this.setState({ query: query});
+              this.search();
+            }}
+          />
         </div>
 
         { this.state.channels && this.state.channels.length > 0 &&

@@ -8,8 +8,7 @@ import { faSearch, faHome, faGamepad, faTv, faStar, faUser } from '@fortawesome/
 let lastFocused;
 
 const Item = ({focused, setFocus, focusPath, text, link, icon}) => {
-  let className = 'item';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item ${focused ? 'focused' : 'unfocused'}`;
   return (
     <Link
       to={link}

@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const AddListItem = ({focused, setFocus, focusPath, itemClass, scroll, index}) => {
-  let className = 'item ' + itemClass;
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item ${focused ? ' focused' : ' unfocused'}`;
 
   return (
     <span

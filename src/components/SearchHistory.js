@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 
 const HistoryItem = ({ focused, setFocus, focusPath, text, search }) => {
-  let className = 'historyItem';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `historyItem ${focused ? 'focused' : 'unfocused'}`;
 
   return (
     <button

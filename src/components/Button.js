@@ -2,8 +2,7 @@ import React from 'react';
 import { withFocusable } from 'react-tv-navigation';
 
 const Button = ({focused, setFocus, focusPath, action, children }) => {
-  let className = 'button ';
-  className += focused ? 'focused' : 'unfocused';
+  let className = `button ${focused ? 'focused' : 'unfocused'}`;
 
   return (
     <button

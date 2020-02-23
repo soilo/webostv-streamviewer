@@ -7,8 +7,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import AddListItem from './AddListItem';
 
 const ChannelSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = 'item streamItem';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
 
   const thumbnail_url = item.video_banner ?
     item.video_banner
@@ -39,8 +38,7 @@ const ChannelSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) 
 }
 
 const GameListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = 'item gameItem';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
 
   const box_art_url = item.box_art_url
     .replace('{width}', '188')
@@ -63,8 +61,7 @@ const GameListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
 }
 
 const GameSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = 'item gameItem';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
 
   const box_art_url = item.box.template
     .replace('{width}', '188')
@@ -87,15 +84,14 @@ const GameSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => 
 }
 
 const StreamListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = 'item streamItem';
-  className += (focused) ? ' focused' : ' unfocused';
+  let className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
 
   const thumbnail_url = item.thumbnail_url
     .replace('{width}', '440')
     .replace('{height}','248');
 
   if (parseInt(item.viewer_count) > 1000) {
-    item.viewer_count = (parseInt(item.viewer_count) / 1000).toFixed(0) + 'K';
+    item.viewer_count = `${(parseInt(item.viewer_count) / 1000).toFixed(0)}K`;
   }
 
   return (

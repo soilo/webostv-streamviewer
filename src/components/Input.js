@@ -11,7 +11,6 @@ class Input extends React.PureComponent {
     input.addEventListener(
       'keypress',
       (event) => {
-        console.log(event)
         if (event.which == 13) {// enter from virtual keyboard
           this.props.setFocus(this.props.parentFocusPath)
         }
@@ -20,8 +19,7 @@ class Input extends React.PureComponent {
   }
 
   render() {
-    let className = 'input '
-    className += this.props.focused ? 'focused' : 'unfocused'
+    let className = `input ${this.props.focused ? 'focused' : 'unfocused'}`;
 
     return (
       <input
@@ -35,10 +33,9 @@ class Input extends React.PureComponent {
           preventDefault()
           this.props.setFocus(this.props.parentFocusPath)
         }}
-        onKeyPress = {(e) => {
-          console.log(e)
-          if (e.key == 'Enter') {
-            e.preventDefault()
+        onKeyPress = {(event) => {
+          if (event.key == 'Enter') {
+            event.preventDefault()
             this.props.setFocus(this.props.parentFocusPath)
           }
         }}
@@ -56,24 +53,23 @@ const InputWrapper = ({
   placeholder,
   action
 }) => {
-  let className = 'input-wrapper '
-  className += focused ? 'focused' : 'unfocused'
+  let className = `input-wrapper ${focused ? 'focused' : 'unfocused'}`;
 
-  const childFocusPath = {focusPath} + '-input';
+  const childFocusPath = `${focusPath}-input`;
   const FocusableInput = withFocusable(Input);
 
   return (
     <button
       className = {className}
-      onClick = {(e) => {
-        e.preventDefault()
+      onClick = {(event) => {
+        event.preventDefault()
         setFocus(childFocusPath)
       }}
     >
       <FocusableInput
         key={childFocusPath}
         focusPath={childFocusPath}
-        parentFocusPath={'' + focusPath}
+        parentFocusPath={`${focusPath}`}
         type={type}
         value={value}
         placeholder={placeholder}

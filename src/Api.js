@@ -10,15 +10,15 @@ export const fetchStreams = (callback, streams, id, cursor) => {
 
   let params = [];
   if (id) {
-    params.push('game_id=' + id);
+    params.push(`game_id=${id}`);
   }
   if (cursor) {
-    params.push('after=' + cursor);
+    params.push(`after=${cursor}`);
   }
-  let queryParams = params.length > 0 ? '?' + join(params, '&') : '';
+  let queryParams = params.length > 0 ? `?${join(params, '&')}` : '';
 
   request
-    .get(api + 'streams' + queryParams)
+    .get(`${api}streams${queryParams}`)
     .set({ 'Client-ID': clientId })
     .accept('json')
     .then(res => callback({
@@ -35,10 +35,10 @@ export const fetchStreams = (callback, streams, id, cursor) => {
 export const fetchGames = (callback, games, cursor) => {
   callback({ gameIsLoading: true });
 
-  let queryParams = (cursor ? '?after=' + cursor : '');
+  let queryParams = (cursor ? `?after=${cursor}` : '');
 
   request
-    .get(api + 'games/top' + queryParams)
+    .get(`${api}games/top${queryParams}`)
     .set({ 'Client-ID': clientId })
     .accept('json')
     .then(res => callback({
@@ -54,7 +54,7 @@ export const fetchGames = (callback, games, cursor) => {
 
 export const fetchGameName = (callback, id) => {
   request
-    .get(api + 'games?id=' + id)
+    .get(`${api}games?id=${id}`)
     .set({ 'Client-ID': clientId })
     .accept('json')
     .then(res => callback({
@@ -66,12 +66,12 @@ export const enrichStreams = (callback, streams) => {
   if (typeof streams !== 'undefined' &&
       streams.length > 0) {
     const enrichables = filter(streams, (stream) => !stream.game);
-    const paramMap = flatMap(enrichables, (stream) => 'id=' + stream.game_id);
-    const queryParams = '?' + join(paramMap, '&');
+    const paramMap = flatMap(enrichables, (stream) => `id=${stream.game_id}`);
+    const queryParams = `?${join(paramMap, '&')}`;
 
     if (enrichables.length > 0) {
       request
-        .get(api + 'games' + queryParams)
+        .get(`${api}games${queryParams}`)
         .set({ 'Client-ID': clientId })
         .accept('json')
         .then(res => {
@@ -100,7 +100,7 @@ export const searchChannels = (callback, query) => {
   callback({ channelIsLoading: true });
 
   request
-    .get(searchApi + 'channels?query=' + query)
+    .get(`${searchApi}channels?query=${query}`)
     .set({ 'Client-ID': clientId })
     .accept('application/vnd.twitchtv.v5+json')
     .then(res => callback({
@@ -117,7 +117,7 @@ export const searchGames = (callback, query) => {
   callback({ gameIsLoading: true });
 
   request
-    .get(searchApi + 'games?query=' + query)
+    .get(`${searchApi}games?query=${query}`)
     .set({ 'Client-ID': clientId })
     .accept('application/vnd.twitchtv.v5+json')
     .then(res => callback({

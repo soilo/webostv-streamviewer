@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 class View extends React.PureComponent {
   constructor(props) {
@@ -7,10 +7,11 @@ class View extends React.PureComponent {
   }
 
   render() {
+    const { title, children } = this.props;
     return (
-      <div className={`view ${this.props.title}`}>
-        <h1>{this.props.title}</h1>
-        {this.props.children}
+      <div className={`view ${title}`}>
+        <h1>{title}</h1>
+        {children}
       </div>
     );
   }

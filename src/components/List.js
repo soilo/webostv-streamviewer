@@ -6,27 +6,25 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 import AddListItem from './AddListItem';
 
-const ChannelSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
+const ChannelSearchItem = ({ focused, item, scroll, index }) => {
+  const className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
 
-  const thumbnail_url = item.video_banner ?
-    item.video_banner
-      .replace('1920', '440')
-      .replace('1080','248'):
-    null;
+  const thumbnailUrl = item.video_banner
+    ? item.video_banner.replace('1920', '440').replace('1080', '248')
+    : null;
 
   return (
     <Link
       to={`/stream/${item.name}`}
       className={className}
-      onFocus={ () => scroll(index) }
+      onFocus={() => scroll(index)}
     >
       <div className='preview'>
-        {thumbnail_url ?
-          <img src={thumbnail_url} alt='thumbnail' />
-          :
-          <FontAwesomeIcon className='icon' icon={ faQuestionCircle } />
-        }
+        {thumbnailUrl ? (
+          <img src={thumbnailUrl} alt='thumbnail' />
+        ) : (
+          <FontAwesomeIcon className='icon' icon={faQuestionCircle} />
+        )}
       </div>
       <div className='titles'>
         <span className='title'>{item.display_name}</span>
@@ -34,15 +32,15 @@ const ChannelSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) 
         <span className='subtitle'>{item.game}</span>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-const GameListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
+const GameListItem = ({ focused, item, scroll, index }) => {
+  const className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
 
-  const box_art_url = item.box_art_url
+  const boxArtUrl = item.box_art_url
     .replace('{width}', '188')
-    .replace('{height}','250');
+    .replace('{height}', '250');
 
   return (
     <Link
@@ -51,21 +49,21 @@ const GameListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
       onFocus={() => scroll(index)}
     >
       <div className='preview'>
-        <img src={box_art_url} alt='boxart' />
+        <img src={boxArtUrl} alt='boxart' />
       </div>
       <div className='titles'>
         <span className='title'>{item.name}</span>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-const GameSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
+const GameSearchItem = ({ focused, item, scroll, index }) => {
+  const className = `item gameItem ${focused ? 'focused' : 'unfocused'}`;
 
-  const box_art_url = item.box.template
+  const boxArtUrl = item.box.template
     .replace('{width}', '188')
-    .replace('{height}','250');
+    .replace('{height}', '250');
 
   return (
     <Link
@@ -74,52 +72,55 @@ const GameSearchItem = ({focused, setFocus, focusPath, item, scroll, index}) => 
       onFocus={() => scroll(index)}
     >
       <div className='preview'>
-        <img src={box_art_url} alt='boxart' />
+        <img src={boxArtUrl} alt='boxart' />
       </div>
       <div className='titles'>
         <span className='title'>{item.name}</span>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-const StreamListItem = ({focused, setFocus, focusPath, item, scroll, index}) => {
-  let className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
+const StreamListItem = ({ focused, item, scroll, index }) => {
+  const className = `item streamItem ${focused ? 'focused' : 'unfocused'}`;
 
-  const thumbnail_url = item.thumbnail_url
+  const thumbnailUrl = item.thumbnail_url
     .replace('{width}', '440')
-    .replace('{height}','248');
+    .replace('{height}', '248');
 
-  if (parseInt(item.viewer_count) > 1000) {
-    item.viewer_count = `${(parseInt(item.viewer_count) / 1000).toFixed(0)}K`;
-  }
+  const viewerCount =
+    parseInt(item.viewer_count, 10) > 1000
+      ? `${(parseInt(item.viewer_count, 10) / 1000).toFixed(0)}K`
+      : item.viewer_count;
 
   return (
     <Link
       to={`/stream/${item.user_name}`}
       className={className}
-      onFocus={ () => scroll(index) }
+      onFocus={() => scroll(index)}
     >
       <div className='preview'>
-        <img src={thumbnail_url} alt='thumbnail' />
+        <img src={thumbnailUrl} alt='thumbnail' />
       </div>
       <div className='titles'>
         <span className='title'>{item.title}</span>
         <span className='subtitle'>{item.user_name}</span>
-        <span className='subtitle'>{item.game == undefined ? '' : item.game.name}</span>
-        <span className='subtitle'>{item.viewer_count} viewers</span>
+        <span className='subtitle'>
+          {item.game === undefined ? '' : item.game.name}
+        </span>
+        <span className='subtitle'>{viewerCount} viewers</span>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
+const List = ({ title, hasErrored, isLoading, items, type, addMore }) => {
   if (hasErrored) {
-    return <p>Sorry! There was an error loading games</p>
+    return <p>Sorry! There was an error loading games</p>;
   }
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <p>Loading...</p>;
   }
 
   const scrollRef = React.createRef();
@@ -128,7 +129,7 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
   let addMorePath;
   let addMoreClass;
 
-  switch(type) {
+  switch (type) {
     case 'streamList':
       Item = withFocusable(StreamListItem);
       listClassName = 'streamList';
@@ -149,30 +150,32 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
       Item = withFocusable(GameSearchItem);
       listClassName = 'gameList';
       break;
+    default:
+      break;
   }
-
 
   const scrollToMiddle = (index) => {
     if (scrollRef.current) {
-      const itemWidth = scrollRef.current.getElementsByClassName('item')[0].offsetWidth;
+      const itemWidth = scrollRef.current.getElementsByClassName('item')[0]
+        .offsetWidth;
       scrollRef.current.scrollLeft = index * itemWidth - 300;
     }
-  }
+  };
 
   return (
     <div>
       <h2>{title}</h2>
       <div className={`list ${listClassName}`} ref={scrollRef}>
-        { items.map((item, index) => (
+        {items.map((item, index) => (
           <Item
-            key={`${listClassName}Item-${index}`}
+            key={`${listClassName}Item-${0 + index}`}
             focusPath={`${listClassName}Item-${index}`}
             item={item}
             scroll={scrollToMiddle}
             index={index}
           />
         ))}
-        { addMore &&
+        {addMore && (
           <AddListItem
             key={addMorePath}
             focusPath={addMorePath}
@@ -181,10 +184,10 @@ const List = ({title, hasErrored, isLoading, items, type, addMore}) => {
             scroll={scrollToMiddle}
             index={items.length}
           />
-        }
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default List;

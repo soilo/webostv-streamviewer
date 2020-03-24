@@ -21,32 +21,46 @@ class Discover extends React.PureComponent {
   }
 
   componentDidMount() {
-    fetchStreams(this.setState, this.state.streams);
-    fetchGames(this.setState, this.state.games);
+    const { streams, games } = this.state;
+    fetchStreams(this.setState, streams);
+    fetchGames(this.setState, games);
   }
 
   componentDidUpdate() {
-    enrichStreams(this.setState, this.state.streams);
+    const { streams } = this.state;
+    enrichStreams(this.setState, streams);
   }
 
   render() {
+    const {
+      streamHasErrored,
+      streamIsLoading,
+      streams,
+      streamCursor,
+      gameHasErrored,
+      gameIsLoading,
+      games,
+      gameCursor
+    } = this.state;
     return (
       <View title='Discover'>
         <List
           title='Live streams'
-          hasErrored={this.state.streamHasErrored}
-          isLoading={this.state.streamIsLoading}
-          items={this.state.streams}
+          hasErrored={streamHasErrored}
+          isLoading={streamIsLoading}
+          items={streams}
           type='streamList'
-          addMore={() => fetchStreams(this.setState, this.state.streams, undefined, this.state.streamCursor)}
+          addMore={() =>
+            fetchStreams(this.setState, streams, undefined, streamCursor)
+          }
         />
         <List
           title='Top games'
-          hasErrored={this.state.gameHasErrored}
-          isLoading={this.state.gameIsLoading}
-          items={this.state.games}
+          hasErrored={gameHasErrored}
+          isLoading={gameIsLoading}
+          items={games}
           type='gameList'
-          addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
+          addMore={() => fetchGames(this.setState, games, gameCursor)}
         />
       </View>
     );

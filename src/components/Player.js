@@ -18,61 +18,61 @@ class Player extends React.Component {
     this.setPlayer();
   }
 
+  componentWillReceiveProps() {
+    this.setId();
+    this.setPlayer();
+
+    // can check for props and call player functions here
+  }
+
   componentDidUpdate() {
     this.setPlayer();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setId();
-    this.setPlayer();
-
-    //can check for props and call player functions here
-  }
-
   componentWillUnmount() {
-    this.setState({ player: null });
+    this.player = null;
   }
 
   setId() {
-    if (!this.state.id) {
-      if (this.props.match.params.channel) {
+    const { id } = this.state;
+    const { match } = this.props;
+    if (!id) {
+      if (match.params.channel) {
         this.channel = true;
         this.setState({
-          id: `twitch-${this.props.match.params.channel}`
+          id: `twitch-${match.params.channel}`
         });
       }
-      if (this.props.match.params.video) {
+      if (match.params.video) {
         this.channel = false;
         this.setState({
-          id: `twitch-${this.props.match.params.video}`
+          id: `twitch-${match.params.video}`
         });
       }
     }
   }
 
   setPlayer() {
+    const { id } = this.state;
+    const { match } = this.props;
     if (!this.player) {
       const options = {};
       if (this.channel) {
-        options.channel = this.props.match.params.channel;
+        options.channel = match.params.channel;
       } else {
-        options.video = this.props.match.params.video;
-        options.collection = this.match.params.collection;
+        options.video = match.params.video;
+        options.collection = match.params.collection;
       }
       if (typeof window !== 'undefined' && window.Twitch) {
-        this.player = new window.Twitch.Player(this.state.id, options);
+        this.player = new window.Twitch.Player(id, options);
         this.player.setVolume(1);
       }
     }
   }
 
   render() {
-    return (
-      <div
-        id={this.state.id || ''}
-        className='twitch-embed'
-      ></div>
-    );
+    const { id } = this.state;
+    return <div id={id || ''} className='twitch-embed' />;
   }
 }
 

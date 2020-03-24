@@ -18,50 +18,34 @@ import Search from './views/Search';
 import Login from './views/Login';
 import './app.scss';
 
-const App = ({ currentFocusPath }) => {
-
+const App = () => {
   return (
     <Router>
       <Navigation />
       <Redirect from='' exact to='/discover' />
       <Switch>
-        <Route
-          exact
-          path='/discover'
-          render={(routeProps) => <Discover {...routeProps} />}
-        />
-        <Route
-          path='/login'
-          render={(routeProps) => <Login {...routeProps} />}
-        />
+        <Route exact path='/discover' render={() => <Discover />} />
+        <Route path='/login' render={() => <Login />} />
         <Route
           path='/game/:id?'
-          render={(routeProps) => <Games {...routeProps} />}
+          render={(routeProps) => <Games match={routeProps.match} />}
+        />
+        <Route path='/channel/:id?' render={() => <Channels />} />
+        <Route path='/follow' render={() => <Following />} />
+        <Route path='/search/:id?' render={() => <Search />} />
+        <Route
+          path='/stream/:channel'
+          render={(routeProps) => <Player channel={routeProps.channel} />}
         />
         <Route
-          path='/channel/:id?'
-          render={(routeProps) => <Channels {...routeProps} />}
-        />
-        <Route
-          path='/follow'
-          render={(routeProps) => <Following {...routeProps} />}
-        />
-        <Route
-          path='/search/:id?'
-          render={(routeProps) => <Search {...routeProps} />}
-        />
-        <Route
-          path='/stream/:channel?'
-          render={(routeProps) => <Player {...routeProps} />}
+          path='/video/:video'
+          render={(routeProps) => <Player video={routeProps.video} />}
         />
       </Switch>
     </Router>
   );
-}
+};
 
 const AppWithNavigation = renderOnAppLoaded(withNavigation(App));
 
-ReactTV.render(
-  <AppWithNavigation />,
-  document.getElementById('app')
-);
+ReactTV.render(<AppWithNavigation />, document.getElementById('app'));

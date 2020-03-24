@@ -15,36 +15,9 @@ class Games extends React.PureComponent {
       streamHasErrored: false,
       streamIsLoading: true,
       streams: [],
-      streamCursor: '',
+      streamCursor: ''
     };
     this.setState = this.setState.bind(this);
-  }
-
-  willFetchStreams() {
-    fetchStreams(this.setState, this.state.streams, this.state.gameId);
-    this.setState({
-      shouldFetchStreams: false,
-    })
-  }
-
-  willFetchGameName() {
-    fetchGameName(this.setState, this.state.gameId);
-    this.setState({
-      shouldFetchGameName: false,
-    })
-  }
-
-  componentDidMount() {
-    fetchGames(this.setState, this.state.games);
-  }
-
-  componentDidUpdate() {
-    if (this.state.shouldFetchStreams) {
-      this.willFetchStreams();
-    }
-    if (this.state.shouldFetchGameName) {
-      this.willFetchGameName();
-    }
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -54,39 +27,83 @@ class Games extends React.PureComponent {
         shouldFetchStreams: true,
         shouldFetchGameName: true
       };
-    } else {
-      return null;
+    }
+    return null;
+  }
+
+  componentDidMount() {
+    const { games } = this.state;
+    fetchGames(this.setState, games);
+  }
+
+  componentDidUpdate() {
+    const { shouldFetchStreams, shouldFetchGameName } = this.state;
+    if (shouldFetchStreams) {
+      this.willFetchStreams();
+    }
+    if (shouldFetchGameName) {
+      this.willFetchGameName();
     }
   }
 
+  willFetchStreams() {
+    const { streams, gameId } = this.state;
+    fetchStreams(this.setState, streams, gameId);
+    this.setState({
+      shouldFetchStreams: false
+    });
+  }
+
+  willFetchGameName() {
+    const { gameId } = this.state;
+    fetchGameName(this.setState, gameId);
+    this.setState({
+      shouldFetchGameName: false
+    });
+  }
+
   render() {
+    const {
+      gameId,
+      gameName,
+      gameHasErrored,
+      gameIsLoading,
+      games,
+      gameCursor,
+      streamHasErrored,
+      streamIsLoading,
+      streams,
+      streamCursor
+    } = this.state;
     let list;
 
-    if (this.state.gameId) {
-      list = <List
-        title={this.state.gameName ? this.state.gameName : ''}
-        hasErrored={this.state.streamHasErrored}
-        isLoading={this.state.streamIsLoading}
-        items={this.state.streams}
-        type='streamList'
-        addMore={() => fetchStreams(this.setState, this.state.streams, this.state.gameId, this.state.streamCursor)}
-      />
+    if (gameId) {
+      list = (
+        <List
+          title={gameName || ''}
+          hasErrored={streamHasErrored}
+          isLoading={streamIsLoading}
+          items={streams}
+          type='streamList'
+          addMore={() =>
+            fetchStreams(this.setState, streams, gameId, streamCursor)
+          }
+        />
+      );
     } else {
-      list = <List
-        title='Top games'
-        hasErrored={this.state.gameHasErrored}
-        isLoading={this.state.gameIsLoading}
-        items={this.state.games}
-        type='gameList'
-        addMore={() => fetchGames(this.setState, this.state.games, this.state.gameCursor)}
-      />
+      list = (
+        <List
+          title='Top games'
+          hasErrored={gameHasErrored}
+          isLoading={gameIsLoading}
+          items={games}
+          type='gameList'
+          addMore={() => fetchGames(this.setState, games, gameCursor)}
+        />
+      );
     }
 
-    return (
-      <View title='view Games'>
-        {list}
-      </View>
-    );
+    return <View title='view Games'>{list}</View>;
   }
 }
 

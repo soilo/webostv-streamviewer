@@ -25,30 +25,41 @@ class Search extends React.PureComponent {
     this.setState = this.setState.bind(this);
   }
 
-  search() {
-    if (this.state.query) {
-      let queryArray = [this.state.query];
-      let newHistory = slice(uniq(union(queryArray, this.state.history)), 0, 5);
+  componentDidMount() {
+    const searchHistory = localStorage.getItem('searchHistory');
+    if (searchHistory) {
+      this.setState({ history: JSON.parse(searchHistory) });
+    }
+  }
 
-      let encodedQuery = encodeURIComponent(this.state.query);
+  search() {
+    const { query, history } = this.state;
+    if (query) {
+      const queryArray = [query];
+      const newHistory = slice(uniq(union(queryArray, history)), 0, 5);
+
+      const encodedQuery = encodeURIComponent(query);
       searchChannels(this.setState, encodedQuery);
       searchGames(this.setState, encodedQuery);
 
       localStorage.setItem('searchHistory', JSON.stringify(newHistory));
       this.setState({
         history: newHistory
-      })
-    }
-  }
-
-  componentDidMount() {
-    const searchHistory = localStorage.getItem('searchHistory');
-    if (searchHistory) {
-      this.setState({ history: JSON.parse(searchHistory) })
+      });
     }
   }
 
   render() {
+    const {
+      query,
+      history,
+      channels,
+      channelHasErrored,
+      channelIsLoading,
+      games,
+      gameHasErrored,
+      gameIsLoading
+    } = this.state;
     return (
       <View title='Search'>
         <div className='searchHeader'>
@@ -56,10 +67,10 @@ class Search extends React.PureComponent {
             key='searchInput'
             focusPath='searchInput'
             type='text'
-            value={this.state.query}
+            value={query}
             placeholder='Search'
             action={(event) => {
-              this.setState({ query: event.target.value })
+              this.setState({ query: event.target.value });
             }}
           />
 
@@ -72,33 +83,33 @@ class Search extends React.PureComponent {
           </Button>
 
           <SearchHistory
-            history={this.state.history}
-            search={(query) => {
-              this.setState({ query: query});
+            history={history}
+            search={(input) => {
+              this.setState({ query: input });
               this.search();
             }}
           />
         </div>
 
-        { this.state.channels && this.state.channels.length > 0 &&
+        {channels && channels.length > 0 && (
           <List
             title='Channels'
-            hasErrored={this.state.channelHasErrored}
-            isLoading={this.state.channelIsLoading}
+            hasErrored={channelHasErrored}
+            isLoading={channelIsLoading}
             type='channelSearch'
-            items={this.state.channels}
+            items={channels}
           />
-        }
+        )}
 
-        { this.state.games && this.state.games.length > 0 &&
+        {games && games.length > 0 && (
           <List
             title='Games'
-            hasErrored={this.state.gameHasErrored}
-            isLoading={this.state.gameIsLoading}
+            hasErrored={gameHasErrored}
+            isLoading={gameIsLoading}
             type='gameSearch'
-            items={this.state.games}
+            items={games}
           />
-        }
+        )}
       </View>
     );
   }
